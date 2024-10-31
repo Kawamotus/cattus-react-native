@@ -21,4 +21,6 @@ export default {
   purple400: "#6D1484",
   background: "#141313",
   text: "#fcfcfc",
+  font: "Montserrat_400Regular",
+  fontBold: "Montserrat_700Bold",
 };
