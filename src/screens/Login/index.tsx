@@ -3,6 +3,8 @@ import { Container, Logo, ValidationText } from "./styles";
 import { Button } from "@components/Button";
 import React from "react";
 import { Path } from "src/functions/Path";
+import { addToken, getToken } from "@storage/token";
+import { addUser, getUser } from "@storage/user";
 
 export const Login = () => {
   const [email, setEmail] = React.useState("");
@@ -11,26 +13,38 @@ export const Login = () => {
   const [passwordValidation, setPasswordValidation] = React.useState("");
 
   const SignIn = async () => {
-    try {
-      const response = await fetch(`${Path}/employee/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          employeeEmail: email,
-          employeePassword: password,
-        }),
+    const response = await fetch(`${Path}/employee/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        employeeEmail: email,
+        employeePassword: password,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!data.ok) {
+      console.log(data.message);
+    }
+
+    if (data.ok) {
+      await addToken(data.token);
+      const userData = await fetch(`${Path}/`, {
+        method: "GET",
+        headers: {
+          authorization: await getToken(),
+        },
       });
 
-      console.log("Pinto duro");
-      const data = await response.json();
-      console.log(data);
-    } catch (erro) {
-      console.log(erro);
+      const dataUser = await userData.json();
+      await addUser(dataUser);
+
+      console.log(await getUser());
     }
   };
 
   const handleClickButton = () => {
-    console.log(email, password);
     if (!email) {
       setEmailValidation("Insira um e-mail válido!");
       return;

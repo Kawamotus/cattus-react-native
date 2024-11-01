@@ -1,5 +1,4 @@
 import { StatusBar } from "react-native";
-import { Home } from "./src/screens/Home";
 import { useTheme } from "./src/themes";
 import { ThemeProvider } from "styled-components";
 import {
@@ -8,6 +7,7 @@ import {
   Montserrat_700Bold,
 } from "@expo-google-fonts/montserrat";
 import { Login } from "@screens/Login";
+import { Loading } from "@components/Loading";
 
 export default function App() {
   const theme = useTheme();
@@ -21,7 +21,7 @@ export default function App() {
         backgroundColor={theme.background}
         translucent
       />
-      {fontsLoaded ? <Login /> : <Login />}
+      {fontsLoaded ? <Login /> : <Loading />}
     </ThemeProvider>
   );
 }
