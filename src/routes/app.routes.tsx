@@ -33,8 +33,9 @@ export const AppRoutes = () => {
         tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: theme.background,
-          borderTopWidth: 0,
-          paddingBottom: 0,
+          borderTopWidth: 2,
+          borderTopColor: theme.black300,
+          height: 55,
         },
       }}>
       <Screen
@@ -42,25 +43,48 @@ export const AppRoutes = () => {
         component={Home}
         options={{
           tabBarIcon: ({ focused }) => (
-            //                      cor meramente para testes
-            <House color={focused ? theme.purple400 : theme.green400} />
+            <House
+              color={focused ? theme.green200 : theme.green400}
+              size={focused ? 28 : 25}
+            />
           ),
         }}
       />
       <Screen
         name='petList'
         component={PetList}
-        options={{ tabBarIcon: () => <Cat color={theme.green400} /> }}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Cat
+              color={focused ? theme.green200 : theme.green400}
+              size={focused ? 28 : 25}
+            />
+          ),
+        }}
       />
       <Screen
         name='cameraList'
         component={CameraList}
-        options={{ tabBarIcon: () => <Cctv color={theme.green400} /> }}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Cctv
+              color={focused ? theme.green200 : theme.green400}
+              size={focused ? 28 : 25}
+            />
+          ),
+        }}
       />
       <Screen
         name='graphics'
         component={Graphics}
-        options={{ tabBarIcon: () => <ChartColumn color={theme.green400} /> }}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <ChartColumn
+              color={focused ? theme.green200 : theme.green400}
+              size={focused ? 28 : 25}
+            />
+          ),
+        }}
       />
       <Screen
         name='cameraDetail'
