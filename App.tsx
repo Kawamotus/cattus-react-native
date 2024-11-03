@@ -6,8 +6,8 @@ import {
   Montserrat_400Regular,
   Montserrat_700Bold,
 } from "@expo-google-fonts/montserrat";
-import { Login } from "@screens/Login";
 import { Loading } from "@components/Loading";
+import { Routes } from "src/routes";
 
 export default function App() {
   const theme = useTheme();
@@ -21,7 +21,7 @@ export default function App() {
         backgroundColor={theme.background}
         translucent
       />
-      {fontsLoaded ? <Login /> : <Loading />}
+      {fontsLoaded ? <Routes /> : <Loading />}
     </ThemeProvider>
   );
 }
