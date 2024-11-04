@@ -1,5 +1,11 @@
 import { Text } from "react-native";
+import { Container } from "./styles";
+import { PetItem } from "@components/PetItem";
 
 export const PetList = () => {
-  return <Text>PetList</Text>;
+  return (
+    <Container>
+      <PetItem imageSource='https://github.com/kawamotus.png' />
+    </Container>
+  );
 };
