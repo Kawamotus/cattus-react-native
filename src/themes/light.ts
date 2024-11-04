@@ -23,4 +23,7 @@ export default {
   text: "#141313",
   font: "Montserrat_400Regular",
   fontBold: "Montserrat_700Bold",
+  alert: "#ffbc11",
+  ok: "#138636",
+  danger: "#c91432",
 };

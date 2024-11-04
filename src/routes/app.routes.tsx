@@ -10,6 +10,7 @@ import { PetDetail } from "@screens/PetDetail";
 import { PetList } from "@screens/PetList";
 import { useTheme } from "@themes";
 import { Cat, Cctv, ChartColumn, House } from "lucide-react-native";
+import { Platform } from "react-native";
 
 type AppRoutes = {
   cameraDetail: undefined;
@@ -26,6 +27,7 @@ const { Navigator, Screen } = createBottomTabNavigator<AppRoutes>();
 
 export const AppRoutes = () => {
   const theme = useTheme();
+
   return (
     <Navigator
       screenOptions={{
@@ -35,7 +37,7 @@ export const AppRoutes = () => {
           backgroundColor: theme.background,
           borderTopWidth: 2,
           borderTopColor: theme.black300,
-          height: 55,
+          height: Platform.OS === "android" ? 55 : 90,
         },
       }}>
       <Screen

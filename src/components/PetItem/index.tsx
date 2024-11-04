@@ -1,23 +1,30 @@
-import { Container, Image } from "./styles";
+import { TouchableOpacityProps } from "react-native";
+import { Container, DataText, Image, PetName, TextContainer } from "./styles";
 
-type Props = {
+type Props = TouchableOpacityProps & {
   imageSource: string;
   petName?: string;
-  petType?: string;
+  petAge?: string;
   petSex?: string;
-  petAlertLevel?: string | number;
+  petAlertLevel: string | number;
 };
 
 export const PetItem = ({
   imageSource,
   petName,
-  petType,
+  petAge,
   petSex,
   petAlertLevel,
+  ...rest
 }: Props) => {
   return (
-    <Container>
+    <Container {...rest} type={petAlertLevel}>
       <Image source={{ uri: imageSource }} />
+      <TextContainer>
+        <PetName>{petName}</PetName>
+        <DataText>{petAge}</DataText>
+        <DataText>{petSex}</DataText>
+      </TextContainer>
     </Container>
   );
 };

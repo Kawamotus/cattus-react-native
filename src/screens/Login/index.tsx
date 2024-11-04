@@ -4,13 +4,18 @@ import { Button } from "@components/Button";
 import React from "react";
 import { Path } from "src/functions/Path";
 import { addToken, getToken } from "@storage/token";
-import { addUser, getUser } from "@storage/user";
+import { addUser } from "@storage/user";
+import { getUserData } from "src/functions/Login";
+import { useNavigation } from "@react-navigation/native";
+import { AuthRoutesProps } from "src/routes/auth.routes";
 
 export const Login = () => {
   const [email, setEmail] = React.useState("");
   const [emailValidation, setEmailValidation] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordValidation, setPasswordValidation] = React.useState("");
+
+  const navigation = useNavigation();
 
   const SignIn = async () => {
     const response = await fetch(`${Path}/employee/login`, {
@@ -30,17 +35,13 @@ export const Login = () => {
 
     if (data.ok) {
       await addToken(data.token);
-      const userData = await fetch(`${Path}/`, {
-        method: "GET",
-        headers: {
-          authorization: await getToken(),
-        },
-      });
+      const dataUser = await getUserData(await getToken());
+      const user = await dataUser.json();
+      await addUser(user);
 
-      const dataUser = await userData.json();
-      await addUser(dataUser);
-
-      console.log(await getUser());
+      console.log("Uhul");
+      console.log(dataUser.status);
+      navigation.navigate("main");
     }
   };
 
@@ -52,6 +53,13 @@ export const Login = () => {
     if (!password) {
       setPasswordValidation("Insira uma senha válida!");
       return;
+    }
+
+    if (email) {
+      setEmailValidation("");
+    }
+    if (password) {
+      setPasswordValidation("");
     }
 
     SignIn();
