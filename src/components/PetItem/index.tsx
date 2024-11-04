@@ -12,7 +12,6 @@ type Props = TouchableOpacityProps & {
 export const PetItem = ({
   imageSource,
   petName,
-  petAge,
   petSex,
   petAlertLevel,
   ...rest
@@ -22,7 +21,6 @@ export const PetItem = ({
       <Image source={{ uri: imageSource }} />
       <TextContainer>
         <PetName>{petName}</PetName>
-        <DataText>{petAge}</DataText>
         <DataText>{petSex}</DataText>
       </TextContainer>
     </Container>

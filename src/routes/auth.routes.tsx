@@ -25,6 +25,7 @@ export const AuthRoutes = () => {
       const token = await getToken();
       if (token) {
         const getUser = await getUserData(token);
+        console.log(await getUser.json());
         if (getUser.status == 200) {
           setIsLogged(true);
         } else {

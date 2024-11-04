@@ -41,7 +41,6 @@ export const Login = () => {
 
       console.log("Uhul");
       console.log(dataUser.status);
-      navigation.navigate("main");
     }
   };
 

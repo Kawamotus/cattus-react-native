@@ -8,7 +8,6 @@ import {
 } from "@expo-google-fonts/montserrat";
 import { Loading } from "@components/Loading";
 import { Routes } from "src/routes";
-import { Login } from "@screens/Login";
 
 export default function App() {
   const theme = useTheme();
