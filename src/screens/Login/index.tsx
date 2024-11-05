@@ -1,6 +1,7 @@
 import React from "react";
 import { InputText } from "@components/InputText";
 import { Button } from "@components/Button";
+import { Loading } from "@components/Loading";
 import { addToken, getToken } from "@storage/token";
 import { addUser } from "@storage/user";
 import { Path } from "src/functions/Path";
@@ -8,8 +9,6 @@ import { getUserData } from "src/functions/Login";
 import { Container, Logo, ValidationText } from "./styles";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { AppRoutesProps } from "src/routes/app.routes";
-import { Home } from "@screens/Home";
-import { Loading } from "@components/Loading";
 
 export const Login = () => {
   const [email, setEmail] = React.useState("");
@@ -42,8 +41,6 @@ export const Login = () => {
       const user = await dataUser.json();
       await addUser(user);
 
-      console.log("Uhul");
-      console.log(dataUser.status);
       navigation.navigate("home");
     }
   };
@@ -74,7 +71,6 @@ export const Login = () => {
         const token = await getToken();
         if (token) {
           const getUser = await getUserData(token);
-          console.log(await getUser.json());
           if (getUser.status == 200) {
             setIsLogged(true);
             navigation.navigate("home");
@@ -88,7 +84,9 @@ export const Login = () => {
     }, [])
   );
 
-  return (
+  return isLogged ? (
+    <Loading />
+  ) : (
     <Container>
       <Logo source={require("@assets/tipo.png")} />
       <InputText

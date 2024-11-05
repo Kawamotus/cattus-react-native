@@ -1,5 +1,10 @@
-import { Text } from "react-native";
+import { Header } from "@components/Header";
+import { Text, View } from "react-native";
 
 export const CameraList = () => {
-  return <Text>CameraList</Text>;
+  return (
+    <View>
+      <Header />
+    </View>
+  );
 };
