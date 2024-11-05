@@ -1,21 +1,24 @@
-import { InputText } from "@components/InputText";
-import { Container, Logo, ValidationText } from "./styles";
-import { Button } from "@components/Button";
 import React from "react";
-import { Path } from "src/functions/Path";
+import { InputText } from "@components/InputText";
+import { Button } from "@components/Button";
 import { addToken, getToken } from "@storage/token";
 import { addUser } from "@storage/user";
+import { Path } from "src/functions/Path";
 import { getUserData } from "src/functions/Login";
-import { useNavigation } from "@react-navigation/native";
-import { AuthRoutesProps } from "src/routes/auth.routes";
+import { Container, Logo, ValidationText } from "./styles";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { AppRoutesProps } from "src/routes/app.routes";
+import { Home } from "@screens/Home";
+import { Loading } from "@components/Loading";
 
 export const Login = () => {
   const [email, setEmail] = React.useState("");
   const [emailValidation, setEmailValidation] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordValidation, setPasswordValidation] = React.useState("");
+  const [isLogged, setIsLogged] = React.useState(false);
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<AppRoutesProps>();
 
   const SignIn = async () => {
     const response = await fetch(`${Path}/employee/login`, {
@@ -41,6 +44,7 @@ export const Login = () => {
 
       console.log("Uhul");
       console.log(dataUser.status);
+      navigation.navigate("home");
     }
   };
 
@@ -63,6 +67,26 @@ export const Login = () => {
 
     SignIn();
   };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const checkAuth = async () => {
+        const token = await getToken();
+        if (token) {
+          const getUser = await getUserData(token);
+          console.log(await getUser.json());
+          if (getUser.status == 200) {
+            setIsLogged(true);
+            navigation.navigate("home");
+          } else {
+            setIsLogged(false);
+          }
+        }
+      };
+
+      checkAuth();
+    }, [])
+  );
 
   return (
     <Container>
