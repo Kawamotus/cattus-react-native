@@ -7,16 +7,16 @@ export const Container = styled.View`
   align-items: center;
   padding: 15px;
   height: 60px;
-  background-color: ${({ theme }) => theme.black300};
+  background-color: ${({ theme }) => theme.green400};
   margin-top: 28px;
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
 `;
 
 export const ProfilePicture = styled.Image`
-  border-radius: 50px;
-  width: 45px;
-  height: 45px;
+  border-radius: 40px;
+  width: 44px;
+  height: 44px;
 `;
 
 export const CompanyName = styled.Text`

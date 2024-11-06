@@ -15,6 +15,7 @@ export default {
   green200: "#55DA53",
   green300: "#5FC75D",
   green400: "#62A061",
+  green500: "#315031",
   purple100: "#CC4FEB",
   purple200: "#B259C8",
   purple300: "#8A2EA0",
@@ -23,7 +24,7 @@ export default {
   text: "#fcfcfc",
   font: "Montserrat_400Regular",
   fontBold: "Montserrat_700Bold",
-  alert: "#ffbc11",
-  ok: "#138636",
-  danger: "#c91432",
+  alert: "#ffd500",
+  ok: "#42ab49",
+  danger: "#c63637",
 };

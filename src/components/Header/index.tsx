@@ -6,8 +6,8 @@ import { Bell } from "lucide-react-native";
 import { useTheme } from "@themes";
 
 type userData = {
-  companyName: string;
-  picture: string;
+  companyName?: string;
+  picture?: string;
 };
 
 export const Header = () => {

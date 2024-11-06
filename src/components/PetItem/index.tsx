@@ -1,11 +1,21 @@
-import { TouchableOpacityProps } from "react-native";
-import { Container, DataText, Image, PetName, TextContainer } from "./styles";
+import { Text, TouchableOpacityProps } from "react-native";
+import {
+  Color,
+  Container,
+  DataText,
+  Image,
+  PetName,
+  PicAndText,
+  TextContainer,
+} from "./styles";
+import { useTheme } from "@themes";
 
 type Props = TouchableOpacityProps & {
   imageSource: string;
   petName?: string;
   petAge?: string;
   petSex?: string;
+  petComorbidities?: string;
   petAlertLevel: string | number;
 };
 
@@ -14,15 +24,22 @@ export const PetItem = ({
   petName,
   petSex,
   petAlertLevel,
+  petComorbidities,
   ...rest
 }: Props) => {
+  const theme = useTheme();
+
   return (
-    <Container {...rest} type={petAlertLevel}>
-      <Image source={{ uri: imageSource }} />
-      <TextContainer>
-        <PetName>{petName}</PetName>
-        <DataText>{petSex}</DataText>
-      </TextContainer>
+    <Container {...rest}>
+      <Color type={petAlertLevel} />
+      <PicAndText>
+        <Image source={{ uri: imageSource }} />
+        <TextContainer>
+          <PetName>{petName}</PetName>
+          <DataText>{petSex}</DataText>
+          <DataText>{petComorbidities}</DataText>
+        </TextContainer>
+      </PicAndText>
     </Container>
   );
 };

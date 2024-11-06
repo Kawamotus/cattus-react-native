@@ -12,6 +12,7 @@ type PetData = {
   petName: string;
   petGender: string;
   petPicture: string;
+  petComorbidities: string;
   petStatus: { petCurrentStatus: string };
 };
 
@@ -22,8 +23,8 @@ export const PetList = () => {
   useFocusEffect(
     React.useCallback(() => {
       const animals = async () => {
-        const teste = await getAnimals();
-        setPetData(await teste.result);
+        const animalsList = await getAnimals();
+        setPetData(await animalsList.result);
         setIsLoading(false);
       };
       animals();
@@ -55,9 +56,11 @@ export const PetList = () => {
                 }
                 petName={item.petName}
                 petSex={item.petGender}
+                petComorbidities={item.petComorbidities}
               />
             )}
             contentContainerStyle={petData.length == 0 && { flex: 1 }}
+            style={{ paddingTop: 8 }}
           />
         </Content>
       )}
