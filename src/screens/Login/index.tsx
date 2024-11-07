@@ -17,7 +17,7 @@ export const Login = () => {
   const [passwordValidation, setPasswordValidation] = React.useState("");
   const [isLogged, setIsLogged] = React.useState(false);
 
-  const navigation = useNavigation<AppRoutesProps>();
+  const navigation = useNavigation();
 
   const SignIn = async () => {
     const response = await fetch(`${Path}/employee/login`, {

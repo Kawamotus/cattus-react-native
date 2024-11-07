@@ -9,6 +9,7 @@ import { Home } from "@screens/Home";
 import { Login } from "@screens/Login";
 import { PetDetail } from "@screens/PetDetail";
 import { PetList } from "@screens/PetList";
+import { Profile } from "@screens/Profile";
 import { getToken } from "@storage/token";
 import { useTheme } from "@themes";
 import { Cat, Cctv, ChartColumn, House } from "lucide-react-native";
@@ -24,6 +25,7 @@ type AppRoutes = {
   petDetail: undefined;
   petList: undefined;
   login: undefined;
+  profile: undefined;
 };
 
 export type AppRoutesProps = BottomTabNavigationProp<AppRoutes>;
@@ -50,87 +52,7 @@ export const AppRoutes = () => {
     checkAuth();
   }, []);
 
-  return isLogged ? (
-    <Navigator
-      screenOptions={({ route }) => ({
-        headerShown: false,
-        tabBarShowLabel: false,
-        tabBarStyle: {
-          backgroundColor: theme.background,
-          borderTopWidth: 2,
-          borderTopColor: theme.black300,
-          height: Platform.OS === "android" ? 55 : 90,
-        },
-      })}>
-      <Screen
-        name='home'
-        component={Home}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <House
-              color={focused ? theme.green200 : theme.green400}
-              size={focused ? 28 : 25}
-            />
-          ),
-        }}
-      />
-      <Screen
-        name='petList'
-        component={PetList}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Cat
-              color={focused ? theme.green200 : theme.green400}
-              size={focused ? 28 : 25}
-            />
-          ),
-        }}
-      />
-      <Screen
-        name='cameraList'
-        component={CameraList}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Cctv
-              color={focused ? theme.green200 : theme.green400}
-              size={focused ? 28 : 25}
-            />
-          ),
-        }}
-      />
-      <Screen
-        name='graphics'
-        component={Graphics}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <ChartColumn
-              color={focused ? theme.green200 : theme.green400}
-              size={focused ? 28 : 25}
-            />
-          ),
-        }}
-      />
-
-      <Screen
-        name='cameraDetail'
-        component={CameraDetail}
-        options={{ tabBarButton: () => null }}
-      />
-      <Screen
-        name='petDetail'
-        component={PetDetail}
-        options={{ tabBarButton: () => null }}
-      />
-      <Screen
-        name='login'
-        component={Login}
-        options={{
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        }}
-      />
-    </Navigator>
-  ) : (
+  return (
     <Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
@@ -208,6 +130,11 @@ export const AppRoutes = () => {
       <Screen
         name='petDetail'
         component={PetDetail}
+        options={{ tabBarButton: () => null }}
+      />
+      <Screen
+        name='profile'
+        component={Profile}
         options={{ tabBarButton: () => null }}
       />
     </Navigator>

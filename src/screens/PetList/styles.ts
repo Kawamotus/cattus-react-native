@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 
 export const Container = styled.View`
   flex: 1;
-  background-color: ${({ theme }) => theme.background};
+  background-color: ${({ theme }: any) => theme.background};
 `;
 
 export const Content = styled.View`

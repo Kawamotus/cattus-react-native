@@ -15,3 +15,16 @@ export const getAnimals = async () => {
   const data = await result.json();
   return data;
 };
+
+export const getAnimal = async (id: string) => {
+  const token = await getToken();
+  const result = await fetch(`${Path}/animal/select-one/${id}`, {
+    method: "GET",
+    headers: {
+      authorization: token,
+    },
+  });
+
+  const data = await result.json();
+  return data;
+};

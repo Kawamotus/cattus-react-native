@@ -1,4 +1,4 @@
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import styled from "styled-components/native";
 
 export const Container = styled.View`
@@ -7,7 +7,7 @@ export const Container = styled.View`
   align-items: center;
   padding: 15px;
   height: 60px;
-  background-color: ${({ theme }) => theme.green400};
+  background-color: ${({ theme }: any) => theme.green400};
   margin-top: 28px;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
@@ -20,8 +20,10 @@ export const ProfilePicture = styled.Image`
 `;
 
 export const CompanyName = styled.Text`
-  font-family: ${({ theme }) => theme.fontBold};
-  color: ${({ theme }) => theme.text};
+  font-family: ${({ theme }: any) => theme.fontBold};
+  color: ${({ theme }: any) => theme.text};
+  max-width: 200px;
+  text-align: center;
 `;
 
-export const Clickable = styled(TouchableOpacity)``;
+export const Clickable = styled(TouchableOpacity)``<TouchableOpacityProps>;

@@ -4,7 +4,7 @@ import { PetItem } from "@components/PetItem";
 import { FlatList } from "react-native";
 import { getAnimals } from "src/functions/AnimalsFetch";
 import { Loading } from "@components/Loading";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { Header } from "@components/Header";
 
 type PetData = {
@@ -19,6 +19,12 @@ type PetData = {
 export const PetList = () => {
   const [petData, setPetData] = React.useState<Array<PetData>>([]);
   const [isLoading, setIsLoading] = React.useState(true);
+
+  const navigation = useNavigation();
+
+  const handleNavigate = (_id: string) => {
+    navigation.navigate("petDetail", { _id });
+  };
 
   useFocusEffect(
     React.useCallback(() => {
@@ -57,6 +63,7 @@ export const PetList = () => {
                 petName={item.petName}
                 petSex={item.petGender}
                 petComorbidities={item.petComorbidities}
+                onPress={() => handleNavigate(item._id)}
               />
             )}
             contentContainerStyle={petData.length == 0 && { flex: 1 }}
