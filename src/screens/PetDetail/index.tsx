@@ -13,9 +13,17 @@ import {
   Container,
   PicAnimal,
   TextAnimalName,
+  Box,
+  BoxContainer,
+  BoxTitle,
+  BoxData,
+  AboutContainer,
+  AboutTitle,
+  AboutData,
 } from "./styles";
 import { ChevronLeft } from "lucide-react-native";
 import { useTheme } from "@themes";
+import { ScrollView } from "react-native";
 
 type RouteParams = {
   _id: string;
@@ -63,15 +71,11 @@ export const PetDetail = () => {
     navigation.navigate("petList");
   };
 
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     getData();
-  //   }, [])
-  // );
-
-  React.useEffect(() => {
-    getData();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      getData();
+    }, [_id])
+  );
 
   return !isLoading ? (
     <Wrapper>
@@ -79,12 +83,37 @@ export const PetDetail = () => {
         <Clickable onPress={handleGoBack}>
           <ChevronLeft color={theme.text} size={40} />
         </Clickable>
-      </BackContent>
-      <Container>
-        <PicAnimal source={{ uri: data?.petPicture }} />
         <TextAnimalName>{data?.petName}</TextAnimalName>
-        <TextAnimalName>{_id}</TextAnimalName>
-      </Container>
+      </BackContent>
+      {/* scrollview simples só pra funcionar o scroll, seguindo as edições do container */}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Container>
+          <PicAnimal source={{ uri: data?.petPicture }} />
+          <BoxContainer>
+            <Box>
+              <BoxTitle>Altura</BoxTitle>
+              <BoxData>23cm</BoxData>
+            </Box>
+            <Box>
+              <BoxTitle>Peso</BoxTitle>
+              <BoxData>3,5Kg</BoxData>
+            </Box>
+            <Box>
+              <BoxTitle>Cor</BoxTitle>
+              <BoxData>Branco e Laranja</BoxData>
+            </Box>
+          </BoxContainer>
+          <AboutContainer>
+            <AboutTitle>Resumo</AboutTitle>
+            <AboutData>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti
+              nostrum accusantium accusamus delectus quod! Eveniet totam,
+              officia quia, sint doloremque dolorem porro esse est aut
+              laboriosam maiores atque praesentium optio.
+            </AboutData>
+          </AboutContainer>
+        </Container>
+      </ScrollView>
     </Wrapper>
   ) : (
     <Loading />

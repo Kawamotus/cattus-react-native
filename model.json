@@ -1,0 +1,21 @@
+{
+  "physicalCharacteristics": {
+    "furColor": "", //preta, branca, cinza, laranja, marrom, ou mesclada.
+    "furLength": "", //curto, médio, longo
+    "eyeColor": "", //azul, castanho, verde
+    "size": "", //em cm
+    "weight": "", //em kg
+    "race": "" //siames, vira lata
+  },
+  "behavioralCharacteristics": {
+    "personality": "", //amigável, reservado, brincalhão, independente, arisco
+    "activityLevel": "", //aativo, moderado, calmo.
+    "activities": {
+      "time": "",
+      "when": "",
+      "...rest": ""
+    },
+    "socialBehavior": "", //prefere humanos, gosta de outros gatos, interage bem com crianças ou prefere ficar sozinho.
+    "meow?": "" //mia muito?, alto? sei lá
+  }
+}
