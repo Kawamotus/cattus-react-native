@@ -93,3 +93,40 @@ export const AboutData = styled.Text`
   font-size: 16px;
   text-align: justify;
 `;
+
+export const ItemContainer = styled.View`
+  padding: 16px;
+  padding-top: 0;
+  max-width: 400px;
+`;
+
+export const ItemContainerBox = styled.View`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 10px;
+`;
+
+export const ItemTitle = styled.Text`
+  color: ${({ theme }: any) => theme.text};
+  font-family: ${({ theme }: any) => theme.fontBold};
+  font-size: 16px;
+  margin-bottom: 8px;
+`;
+
+export const ItemData = styled.Text`
+  color: ${({ theme }: any) => theme.text};
+  font-family: ${({ theme }: any) => theme.font};
+  font-size: 16px;
+  text-align: justify;
+`;
+
+export const ItemBox = styled.View`
+  background-color: ${({ theme }: any) => theme.black200};
+  border-radius: 16px;
+  height: 36px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+`;

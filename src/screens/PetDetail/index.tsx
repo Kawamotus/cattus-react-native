@@ -20,6 +20,11 @@ import {
   AboutContainer,
   AboutTitle,
   AboutData,
+  ItemContainer,
+  ItemTitle,
+  ItemData,
+  ItemBox,
+  ItemContainerBox,
 } from "./styles";
 import { ChevronLeft } from "lucide-react-native";
 import { useTheme } from "@themes";
@@ -91,7 +96,7 @@ export const PetDetail = () => {
           <PicAnimal source={{ uri: data?.petPicture }} />
           <BoxContainer>
             <Box>
-              <BoxTitle>Altura</BoxTitle>
+              <BoxTitle>Tamanho</BoxTitle>
               <BoxData>23cm</BoxData>
             </Box>
             <Box>
@@ -112,6 +117,29 @@ export const PetDetail = () => {
               laboriosam maiores atque praesentium optio.
             </AboutData>
           </AboutContainer>
+          <ItemContainer>
+            <ItemTitle>Vacinas: </ItemTitle>
+            <ItemContainerBox>
+              <ItemBox>
+                <ItemData>Triblablabla</ItemData>
+              </ItemBox>
+              <ItemBox>
+                <ItemData>doloremque</ItemData>
+              </ItemBox>
+              <ItemBox>
+                <ItemData>porro</ItemData>
+              </ItemBox>
+              <ItemBox>
+                <ItemData>totam</ItemData>
+              </ItemBox>
+              <ItemBox>
+                <ItemData>Deleniti</ItemData>
+              </ItemBox>
+              <ItemBox>
+                <ItemData>ipsum</ItemData>
+              </ItemBox>
+            </ItemContainerBox>
+          </ItemContainer>
         </Container>
       </ScrollView>
     </Wrapper>
