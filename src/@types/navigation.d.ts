@@ -1,7 +1,7 @@
 export declare global {
   namespace ReactNavigation {
     interface RootParamList {
-      cameraDetail: undefined;
+      cameraDetail: { _id: string };
       cameraList: undefined;
       graphics: undefined;
       home: undefined;
