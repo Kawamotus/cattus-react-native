@@ -7,6 +7,7 @@ export declare global {
       home: undefined;
       petDetail: { _id: string };
       petList: undefined;
+      petRegister: undefined;
       login: undefined;
       profile: undefined;
     }

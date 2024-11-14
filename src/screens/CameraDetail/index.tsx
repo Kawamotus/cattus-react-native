@@ -19,7 +19,7 @@ type RouteParams = {
 };
 
 const videoSource =
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+  "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8";
 
 export const CameraDetail = () => {
   const route = useRoute();

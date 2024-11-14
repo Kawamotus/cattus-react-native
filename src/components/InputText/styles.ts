@@ -9,10 +9,10 @@ export const Input = styled(TextInput)`
     font-size: 20px;
   `}
   flex: 1;
-  min-height: 50px;
-  max-height: 50px;
-  width: 300px;
+  min-height: 52px;
+  max-height: 52px;
+  width: 320px;
   border-radius: 8px;
-  padding: 10px;
+  padding: 8px;
   margin-bottom: 10px;
 `;

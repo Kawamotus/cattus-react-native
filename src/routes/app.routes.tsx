@@ -1,3 +1,4 @@
+import { Loading } from "@components/Loading";
 import {
   createBottomTabNavigator,
   BottomTabNavigationProp,
@@ -9,6 +10,7 @@ import { Home } from "@screens/Home";
 import { Login } from "@screens/Login";
 import { PetDetail } from "@screens/PetDetail";
 import { PetList } from "@screens/PetList";
+import { PetRegister } from "@screens/PetRegister";
 import { Profile } from "@screens/Profile";
 import { getToken } from "@storage/token";
 import { useTheme } from "@themes";
@@ -24,6 +26,7 @@ type AppRoutes = {
   home: undefined;
   petDetail: undefined;
   petList: undefined;
+  petRegister: undefined;
   login: undefined;
   profile: undefined;
 };
@@ -135,6 +138,11 @@ export const AppRoutes = () => {
       <Screen
         name='profile'
         component={Profile}
+        options={{ tabBarButton: () => null }}
+      />
+      <Screen
+        name='petRegister'
+        component={PetRegister}
         options={{ tabBarButton: () => null }}
       />
     </Navigator>

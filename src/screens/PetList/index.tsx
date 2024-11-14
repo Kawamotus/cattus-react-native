@@ -1,11 +1,19 @@
 import React from "react";
-import { Container, Content } from "./styles";
+import {
+  ButtonNew,
+  ButtonText,
+  Container,
+  ContainerBody,
+  ContainerButton,
+  Content,
+} from "./styles";
 import { PetItem } from "@components/PetItem";
-import { FlatList } from "react-native";
 import { getAnimals } from "src/functions/AnimalsFetch";
 import { Loading } from "@components/Loading";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { Header } from "@components/Header";
+import { Plus } from "lucide-react-native";
+import { useTheme } from "@themes";
 
 type PetData = {
   _id: string;
@@ -21,6 +29,7 @@ export const PetList = () => {
   const [isLoading, setIsLoading] = React.useState(true);
 
   const navigation = useNavigation();
+  const theme = useTheme();
 
   const handleNavigate = (_id: string) => {
     navigation.navigate("petDetail", { _id });
@@ -43,33 +52,35 @@ export const PetList = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <Content>
-          <FlatList
-            data={petData}
-            keyExtractor={(item) => item._id}
-            //precisa ser "item" pois é a forma desestruturada que o flatlist entende
-            renderItem={({ item }) => (
+        <ContainerBody>
+          <ContainerButton>
+            <ButtonNew onPress={() => navigation.navigate("petRegister")}>
+              <ButtonText>Adicionar</ButtonText>
+              <Plus color={theme.text} size={20} />
+            </ButtonNew>
+          </ContainerButton>
+          <Content>
+            {petData.map((data) => (
               <PetItem
-                imageSource={item.petPicture}
+                imageSource={data.petPicture}
                 petAlertLevel={
-                  item.petStatus.petCurrentStatus == "0"
+                  data.petStatus.petCurrentStatus == "0"
                     ? "ok"
-                    : item.petStatus.petCurrentStatus == "1"
+                    : data.petStatus.petCurrentStatus == "1"
                     ? "alert"
-                    : item.petStatus.petCurrentStatus == "2"
+                    : data.petStatus.petCurrentStatus == "2"
                     ? "danger"
                     : ""
                 }
-                petName={item.petName}
-                petSex={item.petGender}
-                petComorbidities={item.petComorbidities}
-                onPress={() => handleNavigate(item._id)}
+                petName={data.petName}
+                petSex={data.petGender}
+                petComorbidities={data.petComorbidities}
+                onPress={() => handleNavigate(data._id)}
+                key={data._id}
               />
-            )}
-            contentContainerStyle={petData.length == 0 && { flex: 1 }}
-            style={{ paddingTop: 8 }}
-          />
-        </Content>
+            ))}
+          </Content>
+        </ContainerBody>
       )}
     </Container>
   );

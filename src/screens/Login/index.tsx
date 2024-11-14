@@ -8,7 +8,6 @@ import { Path } from "src/functions/Path";
 import { getUserData } from "src/functions/Login";
 import { Container, Logo, ValidationText } from "./styles";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { AppRoutesProps } from "src/routes/app.routes";
 
 export const Login = () => {
   const [email, setEmail] = React.useState("");
