@@ -24,14 +24,26 @@ export const ContainerForm = styled.View`
   align-items: center;
 `;
 
+export const ContainerGallery = styled.View`
+  flex-direction: row;
+  gap: 4px;
+  margin-bottom: 4px;
+`;
+
 export const Picture = styled.Image`
   max-width: 200px;
   max-height: 105px;
 `;
 
 export const ButtonGallery = styled(TouchableOpacity)`
-  width: 110px;
+  width: 158px;
   height: 50px;
   background-color: ${({ theme }: any) => theme.purple400};
   border-radius: 8px;
+`;
+
+export const TextButton = styled.Text`
+  font-family: ${({ theme }: any) => theme.font};
+  color: ${({ theme }: any) => theme.text};
+  font-size: 20px;
 `;
