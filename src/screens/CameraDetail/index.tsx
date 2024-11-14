@@ -11,15 +11,21 @@ import {
 } from "./styles";
 import { useTheme } from "@themes";
 import { ChevronLeft } from "lucide-react-native";
-import { Video } from "expo-av";
+import { VideoView, useVideoPlayer } from "expo-video";
+import React from "react";
 
 type RouteParams = {
   _id: string;
 };
 
+const videoSource =
+  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+
 export const CameraDetail = () => {
   const route = useRoute();
   const theme = useTheme();
+
+  const player = useVideoPlayer(videoSource);
 
   const { _id } = route.params as RouteParams;
   const navigation = useNavigation();
@@ -27,6 +33,8 @@ export const CameraDetail = () => {
   const handleGoBack = () => {
     navigation.navigate("cameraList");
   };
+
+  React.useEffect(() => {}, []);
 
   return (
     <Container>
@@ -38,20 +46,12 @@ export const CameraDetail = () => {
       </BackContainer>
       <ScrollContainer>
         <VideoContainer>
-          <Video
-            source={{
-              uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-            }}
-            rate={1.0} // Velocidade de reprodução
-            volume={1.0} // Volume (1.0 = 100%)
-            isMuted={false} // Som ativado
-            shouldPlay // Inicia a reprodução automaticamente
-            isLooping // Reprodução em loop
-            style={{
-              width: "100%",
-              height: 200,
-            }}
-            resizeMode='contain'
+          <VideoView
+            player={player}
+            style={{ width: "100%", height: 200 }}
+            allowsFullscreen
+            allowsPictureInPicture
+            nativeControls={true}
           />
         </VideoContainer>
         <PetsContainer>
