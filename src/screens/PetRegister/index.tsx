@@ -16,9 +16,12 @@ import { Button } from "@components/Button";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import { Alert } from "react-native";
+import RNDateTimePicker from "@react-native-community/datetimepicker";
 
 export const PetRegister = () => {
   const [image, setImage] = React.useState({});
+  const [date, setDate] = React.useState(new Date());
+  const [show, setShow] = React.useState(false);
 
   const theme = useTheme();
   const navigation = useNavigation();
@@ -27,7 +30,7 @@ export const PetRegister = () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ["images", "videos"],
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
     });
 
@@ -49,7 +52,7 @@ export const PetRegister = () => {
 
     const result = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
     });
 
@@ -59,7 +62,10 @@ export const PetRegister = () => {
       setImage(result.assets[0].uri);
     }
   };
-  const handleSelectImage = async () => {};
+  const onChange = (event: any, selectedDate?: Date) => {
+    setShow(false);
+    if (selectedDate) setDate(selectedDate);
+  };
 
   return (
     <Container>
@@ -82,7 +88,10 @@ export const PetRegister = () => {
               <TextButton>Galeria</TextButton>
             </ButtonGallery>
           </ContainerGallery>
-
+          <Button title='Selecionar Data' onPress={() => setShow(!show)} />
+          {show && (
+            <RNDateTimePicker value={date} mode='date' onChange={onChange} />
+          )}
           <Button title='Cadastrar' type='green' />
         </ContainerForm>
       </ContainerScroll>

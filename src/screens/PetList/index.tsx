@@ -1,19 +1,12 @@
 import React from "react";
-import {
-  ButtonNew,
-  ButtonText,
-  Container,
-  ContainerBody,
-  ContainerButton,
-  Content,
-} from "./styles";
+import { Container, ContainerBody, Content } from "./styles";
 import { PetItem } from "@components/PetItem";
 import { getAnimals } from "src/functions/AnimalsFetch";
 import { Loading } from "@components/Loading";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { Header } from "@components/Header";
-import { Plus } from "lucide-react-native";
 import { useTheme } from "@themes";
+import { FloatActionButton } from "@components/FloatActionButton";
 
 type PetData = {
   _id: string;
@@ -53,12 +46,6 @@ export const PetList = () => {
         <Loading />
       ) : (
         <ContainerBody>
-          <ContainerButton>
-            <ButtonNew onPress={() => navigation.navigate("petRegister")}>
-              <ButtonText>Adicionar</ButtonText>
-              <Plus color={theme.text} size={20} />
-            </ButtonNew>
-          </ContainerButton>
           <Content>
             {petData.map((data) => (
               <PetItem
@@ -82,6 +69,7 @@ export const PetList = () => {
           </Content>
         </ContainerBody>
       )}
+      <FloatActionButton onPress={() => navigation.navigate("petRegister")} />
     </Container>
   );
 };
