@@ -6,7 +6,7 @@ export const Input = styled(TextInput)`
     background-color: ${theme.black100};
     color: ${theme.white100};
     font-family: ${theme.font};
-    font-size: 20px;
+    font-size: 16px;
   `}
   flex: 1;
   min-height: 52px;
@@ -14,5 +14,5 @@ export const Input = styled(TextInput)`
   width: 320px;
   border-radius: 8px;
   padding: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 `;

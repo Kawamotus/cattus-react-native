@@ -38,6 +38,7 @@
         }
       ],
       "expo-font"
-    ]
+    ],
+    "permissions": ["CAMERA", "MEDIA_LIBRARY"]
   }
 }

@@ -1,3 +1,4 @@
+import { Picker } from "@react-native-picker/picker";
 import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 
@@ -22,12 +23,14 @@ export const ContainerImage = styled.View`
 export const ContainerForm = styled.View`
   flex: 1;
   align-items: center;
+  margin-bottom: 8px;
 `;
 
 export const ContainerGallery = styled.View`
   flex-direction: row;
   gap: 4px;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
+  max-height: 500px;
 `;
 
 export const Picture = styled.Image`
@@ -40,10 +43,6 @@ export const ButtonGallery = styled(TouchableOpacity)`
   height: 50px;
   background-color: ${({ theme }: any) => theme.purple400};
   border-radius: 8px;
-`;
-
-export const TextButton = styled.Text`
-  font-family: ${({ theme }: any) => theme.font};
-  color: ${({ theme }: any) => theme.text};
-  font-size: 20px;
+  justify-content: center;
+  align-items: center;
 `;
