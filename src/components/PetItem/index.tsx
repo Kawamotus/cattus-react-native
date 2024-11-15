@@ -16,7 +16,7 @@ type Props = TouchableOpacityProps & {
   petAge?: string;
   petSex?: string;
   petComorbidities?: string;
-  petAlertLevel: string | number;
+  petAlertLevel?: string | number;
 };
 
 export const PetItem = ({
@@ -27,8 +27,6 @@ export const PetItem = ({
   petComorbidities,
   ...rest
 }: Props) => {
-  const theme = useTheme();
-
   return (
     <Container {...rest}>
       <Color type={petAlertLevel} />

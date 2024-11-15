@@ -51,12 +51,14 @@ export const PetList = () => {
               <PetItem
                 imageSource={data.petPicture}
                 petAlertLevel={
-                  data.petStatus.petCurrentStatus == "0"
-                    ? "ok"
-                    : data.petStatus.petCurrentStatus == "1"
-                    ? "alert"
-                    : data.petStatus.petCurrentStatus == "2"
-                    ? "danger"
+                  data.petStatus
+                    ? data.petStatus.petCurrentStatus == "0"
+                      ? "ok"
+                      : data.petStatus.petCurrentStatus == "1"
+                      ? "alert"
+                      : data.petStatus.petCurrentStatus == "2"
+                      ? "danger"
+                      : ""
                     : ""
                 }
                 petName={data.petName}

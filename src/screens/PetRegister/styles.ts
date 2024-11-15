@@ -1,4 +1,3 @@
-import { Picker } from "@react-native-picker/picker";
 import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 

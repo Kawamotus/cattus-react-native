@@ -18,6 +18,8 @@ import { Alert, Image } from "react-native";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
 import { Camera, Images } from "lucide-react-native";
+import { postAnimal } from "src/functions/AnimalsFetch";
+import { getUser } from "@storage/user";
 
 export const PetRegister = () => {
   const [name, setName] = React.useState("");
@@ -45,9 +47,9 @@ export const PetRegister = () => {
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
-      console.log(image);
     }
   };
+
   const takePhoto = async () => {
     const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
     if (permissionResult.granted === false) {
@@ -70,10 +72,39 @@ export const PetRegister = () => {
       console.log(image);
     }
   };
-  const onChange = (event: any, selectedDate?: Date) => {
+
+  const changeDate = (event: any, selectedDate?: Date) => {
     setShow(false);
     if (selectedDate) setDate(selectedDate);
     console.log(date);
+  };
+
+  const sendData = async () => {
+    if (!name || !image || !date || !gender || !obs) {
+      Alert.alert("Erro", "Preencha todos os campos!");
+      return;
+    }
+
+    const user = await getUser();
+
+    const formData = new FormData();
+    formData.append("petName", name);
+    formData.append("petBirth", date.toDateString());
+    formData.append("petGender", gender);
+    formData.append("petObs", obs);
+    formData.append("petPicture", image);
+    formData.append("company", user.company);
+
+    const response = await postAnimal(formData);
+    console.log(await response);
+
+    setName("");
+    setImage("");
+    setDate(new Date());
+    setObs("");
+    setGender("Fêmea");
+
+    navigation.navigate("petList");
   };
 
   return (
@@ -87,7 +118,7 @@ export const PetRegister = () => {
           <Picture source={require("@assets/sleeping-kitty.png")} />
         </ContainerImage>
         <ContainerForm>
-          <InputText placeholder='Nome' onChangeText={setName} />
+          <InputText placeholder='Nome' onChangeText={setName} value={name} />
           <Button
             title={
               !date ? "Data de Nascimento" : `Nasceu em ${dia}/${mes}/${ano}?`
@@ -95,7 +126,7 @@ export const PetRegister = () => {
             onPress={() => setShow(!show)}
           />
           {show && (
-            <RNDateTimePicker value={date} mode='date' onChange={onChange} />
+            <RNDateTimePicker value={date} mode='date' onChange={changeDate} />
           )}
           <Picker
             selectedValue={gender}
@@ -112,7 +143,11 @@ export const PetRegister = () => {
             <Picker.Item label='Fêmea' value='Fêmea' />
             <Picker.Item label='Macho' value='Macho' />
           </Picker>
-          <InputText placeholder='Observações' onChangeText={setObs} />
+          <InputText
+            placeholder='Observações'
+            onChangeText={setObs}
+            value={obs}
+          />
           <ContainerGallery>
             <ButtonGallery onPress={takePhoto}>
               <Camera color={theme.text} size={30} />
@@ -133,7 +168,7 @@ export const PetRegister = () => {
             />
           )}
 
-          <Button title='Cadastrar' type='green' />
+          <Button title='Cadastrar' type='green' onPress={sendData} />
         </ContainerForm>
       </ContainerScroll>
     </Container>
