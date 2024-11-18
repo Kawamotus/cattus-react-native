@@ -11,61 +11,25 @@ export const CameraList = () => {
       _id: "1",
       title: "Camera 1",
       linkPic:
-        "https://apaixonadosporquatropatas.com.br/wp-content/uploads/2024/04/Como-Escolher-os-Melhores-Brinquedos-e-Acessorios-para-seu-Pet.jpg",
+        "https://cdn.leonardo.ai/users/3871d2f2-3a2a-4694-a99a-6efec489dab4/generations/13e8974e-b8df-43f5-8f6a-2b937288274c/Leonardo_Phoenix_A_cozy_and_warm_cat_shelter_scene_with_multip_2.jpg",
     },
     {
       _id: "2",
       title: "Camera 2",
       linkPic:
-        "https://apaixonadosporquatropatas.com.br/wp-content/uploads/2024/04/Como-Escolher-os-Melhores-Brinquedos-e-Acessorios-para-seu-Pet.jpg",
+        "https://cdn.leonardo.ai/users/3871d2f2-3a2a-4694-a99a-6efec489dab4/generations/13e8974e-b8df-43f5-8f6a-2b937288274c/Leonardo_Phoenix_A_cozy_and_warm_cat_shelter_scene_with_multip_1.jpg",
     },
     {
       _id: "3",
       title: "Camera 3",
       linkPic:
-        "https://apaixonadosporquatropatas.com.br/wp-content/uploads/2024/04/Como-Escolher-os-Melhores-Brinquedos-e-Acessorios-para-seu-Pet.jpg",
+        "https://cdn.leonardo.ai/users/3871d2f2-3a2a-4694-a99a-6efec489dab4/generations/13e8974e-b8df-43f5-8f6a-2b937288274c/Leonardo_Phoenix_A_cozy_and_warm_cat_shelter_scene_with_multip_0.jpg",
     },
     {
       _id: "4",
       title: "Camera 4",
       linkPic:
-        "https://apaixonadosporquatropatas.com.br/wp-content/uploads/2024/04/Como-Escolher-os-Melhores-Brinquedos-e-Acessorios-para-seu-Pet.jpg",
-    },
-    {
-      _id: "5",
-      title: "Camera 5",
-      linkPic:
-        "https://apaixonadosporquatropatas.com.br/wp-content/uploads/2024/04/Como-Escolher-os-Melhores-Brinquedos-e-Acessorios-para-seu-Pet.jpg",
-    },
-    {
-      _id: "6",
-      title: "Camera 6",
-      linkPic:
-        "https://apaixonadosporquatropatas.com.br/wp-content/uploads/2024/04/Como-Escolher-os-Melhores-Brinquedos-e-Acessorios-para-seu-Pet.jpg",
-    },
-    {
-      _id: "7",
-      title: "Camera 7",
-      linkPic:
-        "https://apaixonadosporquatropatas.com.br/wp-content/uploads/2024/04/Como-Escolher-os-Melhores-Brinquedos-e-Acessorios-para-seu-Pet.jpg",
-    },
-    {
-      _id: "8",
-      title: "Camera 8",
-      linkPic:
-        "https://apaixonadosporquatropatas.com.br/wp-content/uploads/2024/04/Como-Escolher-os-Melhores-Brinquedos-e-Acessorios-para-seu-Pet.jpg",
-    },
-    {
-      _id: "9",
-      title: "Camera 9",
-      linkPic:
-        "https://apaixonadosporquatropatas.com.br/wp-content/uploads/2024/04/Como-Escolher-os-Melhores-Brinquedos-e-Acessorios-para-seu-Pet.jpg",
-    },
-    {
-      _id: "10",
-      title: "Camera 10",
-      linkPic:
-        "https://apaixonadosporquatropatas.com.br/wp-content/uploads/2024/04/Como-Escolher-os-Melhores-Brinquedos-e-Acessorios-para-seu-Pet.jpg",
+        "https://cdn.leonardo.ai/users/3871d2f2-3a2a-4694-a99a-6efec489dab4/generations/13e8974e-b8df-43f5-8f6a-2b937288274c/Leonardo_Phoenix_A_cozy_and_warm_cat_shelter_scene_with_multip_3.jpg",
     },
   ]);
 

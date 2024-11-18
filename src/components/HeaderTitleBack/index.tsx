@@ -1,7 +1,6 @@
 import { useTheme } from "@themes";
 import { BackContent, Clickable, TextTitle } from "./styles";
 import { ChevronLeft } from "lucide-react-native";
-import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacityProps } from "react-native";
 
 type Props = TouchableOpacityProps & {
@@ -10,11 +9,7 @@ type Props = TouchableOpacityProps & {
 
 export const HeaderTitleBack = ({ title, ...rest }: Props) => {
   const theme = useTheme();
-  const navigation = useNavigation();
 
-  const handleNavigate = () => {
-    navigation.goBack();
-  };
   return (
     <BackContent>
       <Clickable {...rest}>

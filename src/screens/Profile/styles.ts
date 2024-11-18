@@ -12,21 +12,15 @@ export const Container = styled.View`
   background-color: ${({ theme }: any) => theme.background};
 `;
 
-export const BackContent = styled.View`
-  margin-top: 28px;
-  flex-direction: row;
-  height: 56px;
-  padding: 8px;
-  background-color: ${({ theme }: any) => theme.background};
+export const Clickable = styled(TouchableOpacity)`
+  margin-top: 20px;
 `;
-
-export const Clickable = styled(TouchableOpacity)``;
 
 export const ClickableLogout = styled(TouchableOpacity)`
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  margin-top: 80px;
+  margin-top: 40px;
 `;
 
 export const ProfilePic = styled.Image`
@@ -51,4 +45,10 @@ export const Logout = styled.Text`
   font-size: 20px;
   color: ${({ theme }: any) => theme.danger};
   margin-right: 8px;
+`;
+
+export const TextManage = styled.Text`
+  font-family: ${({ theme }: any) => theme.fontBold};
+  font-size: 20px;
+  color: ${({ theme }: any) => theme.text};
 `;

@@ -8,8 +8,6 @@ export const Wrapper = styled.View`
 
 export const Container = styled.View`
   flex: 1;
-  align-items: center;
-  justify-content: center;
   background-color: ${({ theme }: any) => theme.background};
 `;
 
@@ -51,6 +49,8 @@ export const TextAnimalName = styled.Text`
 
 export const BoxContainer = styled.View`
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Box = styled.View`
@@ -128,5 +128,9 @@ export const ItemBox = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  padding: 8px;
+`;
+
+export const ContainerPersonality = styled.View`
   padding: 8px;
 `;

@@ -70,6 +70,7 @@ export const PetDetail = () => {
     const result = await getAnimal(_id);
     setData(await result.result);
     setIsLoading(false);
+    console.log(await result.result);
   };
 
   const handleGoBack = () => {
@@ -109,37 +110,41 @@ export const PetDetail = () => {
             </Box>
           </BoxContainer>
           <AboutContainer>
-            <AboutTitle>Resumo</AboutTitle>
-            <AboutData>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti
-              nostrum accusantium accusamus delectus quod! Eveniet totam,
-              officia quia, sint doloremque dolorem porro esse est aut
-              laboriosam maiores atque praesentium optio.
-            </AboutData>
+            <AboutTitle>Observação</AboutTitle>
+            <AboutData>Aprecia brinquedos interativos</AboutData>
           </AboutContainer>
           <ItemContainer>
             <ItemTitle>Vacinas: </ItemTitle>
             <ItemContainerBox>
               <ItemBox>
-                <ItemData>Triblablabla</ItemData>
+                <ItemData>V3</ItemData>
               </ItemBox>
               <ItemBox>
-                <ItemData>doloremque</ItemData>
+                <ItemData>Raiva</ItemData>
               </ItemBox>
               <ItemBox>
-                <ItemData>porro</ItemData>
+                <ItemData>V4</ItemData>
               </ItemBox>
               <ItemBox>
-                <ItemData>totam</ItemData>
+                <ItemData>V5</ItemData>
               </ItemBox>
               <ItemBox>
-                <ItemData>Deleniti</ItemData>
-              </ItemBox>
-              <ItemBox>
-                <ItemData>ipsum</ItemData>
+                <ItemData>V8</ItemData>
               </ItemBox>
             </ItemContainerBox>
           </ItemContainer>
+          <AboutContainer>
+            <AboutTitle>Personalidade</AboutTitle>
+            <AboutData>independente</AboutData>
+          </AboutContainer>
+          <AboutContainer>
+            <AboutTitle>Comorbidades</AboutTitle>
+            <AboutData>Problema renal</AboutData>
+          </AboutContainer>
+          <AboutContainer>
+            <AboutTitle>Saúde</AboutTitle>
+            <AboutData>Saudável</AboutData>
+          </AboutContainer>
         </Container>
       </ScrollView>
     </Wrapper>

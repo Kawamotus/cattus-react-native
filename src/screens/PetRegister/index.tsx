@@ -24,6 +24,7 @@ import { getUser } from "@storage/user";
 export const PetRegister = () => {
   const [name, setName] = React.useState("");
   const [image, setImage] = React.useState("");
+  const [imageData, setImageData] = React.useState("");
   const [date, setDate] = React.useState(new Date());
   const [show, setShow] = React.useState(false);
   const [gender, setGender] = React.useState("Fêmea");
@@ -45,8 +46,13 @@ export const PetRegister = () => {
       quality: 1,
     });
 
+    console.log(result);
+
     if (!result.canceled) {
       setImage(result.assets[0].uri);
+      if (result.assets[0].fileName) {
+        setImageData(result.assets[0].fileName);
+      }
     }
   };
 
@@ -67,9 +73,14 @@ export const PetRegister = () => {
       quality: 1,
     });
 
+    console.log(result);
+
     if (!result.canceled) {
       setImage(result.assets[0].uri);
       console.log(image);
+      if (result.assets[0].fileName) {
+        setImageData(result.assets[0].fileName);
+      }
     }
   };
 
@@ -86,13 +97,19 @@ export const PetRegister = () => {
     }
 
     const user = await getUser();
+    const result = await fetch(image);
+    const blob = await result.blob();
 
     const formData = new FormData();
     formData.append("petName", name);
     formData.append("petBirth", date.toDateString());
     formData.append("petGender", gender);
     formData.append("petObs", obs);
-    formData.append("petPicture", image);
+    formData.append("petPicture", {
+      uri: image,
+      name: imageData,
+      type: blob.type,
+    });
     formData.append("company", user.company);
 
     const response = await postAnimal(formData);

@@ -5,12 +5,17 @@ export const Container = styled.View`
   background-color: ${({ theme }: any) => theme.background};
 `;
 
-export const Content = styled.View`
+export const ContainerCharts = styled.View`
   flex: 1;
-  align-items: center;
-  justify-content: center;
+  background-color: ${({ theme }: any) => theme.background};
+  margin-top: 12px;
 `;
 
-export const Text = styled.Text`
+export const Title = styled.Text`
+  font-family: ${({ theme }: any) => theme.fontBold};
+  font-size: 20px;
   color: ${({ theme }: any) => theme.text};
+  padding-left: 12px;
+  padding-bottom: 4px;
+  padding-top: 8px;
 `;

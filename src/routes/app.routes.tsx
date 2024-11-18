@@ -12,6 +12,7 @@ import { PetDetail } from "@screens/PetDetail";
 import { PetList } from "@screens/PetList";
 import { PetRegister } from "@screens/PetRegister";
 import { Profile } from "@screens/Profile";
+import { ProfileList } from "@screens/ProfileList";
 import { getToken } from "@storage/token";
 import { useTheme } from "@themes";
 import { Cat, Cctv, ChartColumn, House } from "lucide-react-native";
@@ -29,6 +30,7 @@ type AppRoutes = {
   petRegister: undefined;
   login: undefined;
   profile: undefined;
+  profileList: undefined;
 };
 
 export type AppRoutesProps = BottomTabNavigationProp<AppRoutes>;
@@ -143,6 +145,11 @@ export const AppRoutes = () => {
       <Screen
         name='petRegister'
         component={PetRegister}
+        options={{ tabBarButton: () => null }}
+      />
+      <Screen
+        name='profileList'
+        component={ProfileList}
         options={{ tabBarButton: () => null }}
       />
     </Navigator>

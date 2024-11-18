@@ -10,6 +10,7 @@ export declare global {
       petRegister: undefined;
       login: undefined;
       profile: undefined;
+      profileList: undefined;
     }
   }
 }
