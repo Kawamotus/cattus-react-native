@@ -1,10 +1,7 @@
-import { Dimensions } from "react-native";
 import { PieChart } from "react-native-chart-kit";
 import { ChartContainer } from "./styles";
 import { useTheme } from "@themes";
 import { PieChartProps } from "react-native-chart-kit/dist/PieChart";
-
-const screenWidth = Dimensions.get("window").width;
 
 export const Pie = ({
   data,

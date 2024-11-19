@@ -15,6 +15,7 @@ export const Login = () => {
   const [password, setPassword] = React.useState("");
   const [passwordValidation, setPasswordValidation] = React.useState("");
   const [isLogged, setIsLogged] = React.useState(false);
+  const [isDisabled, setIsDisabled] = React.useState(false);
 
   const navigation = useNavigation();
 
@@ -54,6 +55,8 @@ export const Login = () => {
       return;
     }
 
+    setIsDisabled(true);
+
     if (email) {
       setEmailValidation("");
     }
@@ -80,6 +83,7 @@ export const Login = () => {
       };
 
       checkAuth();
+      setIsDisabled(false);
     }, [])
   );
 
@@ -102,7 +106,12 @@ export const Login = () => {
       {passwordValidation && (
         <ValidationText>{passwordValidation}</ValidationText>
       )}
-      <Button title='Entrar' type='green' onPress={handleClickButton} />
+      <Button
+        title='Entrar'
+        type='green'
+        onPress={handleClickButton}
+        disabled={isDisabled}
+      />
     </Container>
   );
 };

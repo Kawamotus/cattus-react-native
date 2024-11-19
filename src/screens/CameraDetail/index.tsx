@@ -1,4 +1,8 @@
-import { useNavigation, useRoute } from "@react-navigation/native";
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import {
   BackContainer,
   CameraTitle,
@@ -9,9 +13,9 @@ import {
   TitlePets,
   VideoContainer,
 } from "./styles";
+import { Video } from "expo-av";
 import { useTheme } from "@themes";
 import { ChevronLeft } from "lucide-react-native";
-import { VideoView, useVideoPlayer } from "expo-video";
 import React from "react";
 
 type RouteParams = {
@@ -25,7 +29,9 @@ export const CameraDetail = () => {
   const route = useRoute();
   const theme = useTheme();
 
-  const player = useVideoPlayer(videoSource);
+  const videoRef = React.useRef<Video>(null);
+
+  //const player = useVideoPlayer(videoSource);
 
   const { _id } = route.params as RouteParams;
   const navigation = useNavigation();
@@ -35,6 +41,8 @@ export const CameraDetail = () => {
   };
 
   React.useEffect(() => {}, []);
+
+  useFocusEffect(React.useCallback(() => {}, []));
 
   return (
     <Container>
@@ -46,12 +54,14 @@ export const CameraDetail = () => {
       </BackContainer>
       <ScrollContainer>
         <VideoContainer>
-          <VideoView
-            player={player}
-            style={{ width: "100%", height: 200 }}
-            allowsFullscreen
-            allowsPictureInPicture
-            nativeControls={true}
+          <Video
+            ref={videoRef}
+            source={{ uri: videoSource }}
+            style={{ width: "100%", height: 360 }}
+            resizeMode='contain' // Ajusta ao contêiner
+            useNativeControls // Ativa os controles nativos
+            isLooping // Faz o vídeo reiniciar automaticamente
+            onError={(error) => console.log("Erro no vídeo:", error)}
           />
         </VideoContainer>
         <PetsContainer>

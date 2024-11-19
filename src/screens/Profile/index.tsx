@@ -15,6 +15,8 @@ import { Loading } from "@components/Loading";
 import { LogOut } from "lucide-react-native";
 import { useTheme } from "@themes";
 import { HeaderTitleBack } from "@components/HeaderTitleBack";
+import { Alert } from "react-native";
+import { deleteToken } from "@storage/token";
 
 type UserProps = {
   name: string;
@@ -41,6 +43,22 @@ export const Profile = () => {
     navigation.goBack();
   };
 
+  const handleExit = async () => {
+    Alert.alert("Sair", "Deseja realmente sair?", [
+      {
+        text: "Cancelar",
+        style: "cancel",
+      },
+      {
+        text: "Sair",
+        onPress: async () => {
+          await deleteToken();
+          await navigation.navigate("login");
+        },
+      },
+    ]);
+  };
+
   useFocusEffect(
     React.useCallback(() => {
       getData();
@@ -62,7 +80,7 @@ export const Profile = () => {
         <Clickable onPress={() => navigation.navigate("profileList")}>
           <TextManage>Gerenciar Perfis</TextManage>
         </Clickable>
-        <ClickableLogout>
+        <ClickableLogout onPress={handleExit}>
           <Logout>Sair</Logout>
           <LogOut color={theme.danger} />
         </ClickableLogout>

@@ -7,7 +7,7 @@ export const Container = styled.SafeAreaView`
 
 export const ChartContainer = styled.View`
   height: auto;
-  background-color: ${({ theme }: any) => theme.white200};
+  background-color: ${({ theme }: any) => theme.black300};
   margin: 8px;
   border-radius: 8px;
 `;
