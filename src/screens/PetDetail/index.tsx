@@ -25,10 +25,12 @@ import {
   ItemData,
   ItemBox,
   ItemContainerBox,
+  ContainerButton,
 } from "./styles";
 import { ChevronLeft } from "lucide-react-native";
 import { useTheme } from "@themes";
 import { ScrollView } from "react-native";
+import { Button } from "@components/Button";
 
 type RouteParams = {
   _id: string;
@@ -39,6 +41,14 @@ type PetData = {
   petBirth: string;
   petCharacteristics: {
     petBreed: string;
+    petCastrated: string;
+    petSize: string;
+  };
+  behavioralCharacteristics: {
+    activityLevel: string;
+    meow: string;
+    personality: string;
+    socialBehavior: string;
   };
   petComorbidities: string;
   petEntry: string;
@@ -51,6 +61,14 @@ type PetData = {
     petCurrentStatus: string;
     petLastOccurrence: string | null;
     petOccurrencesQuantity: string | null;
+  };
+  petVaccines?: [];
+  physicalCharacteristics: {
+    eyeColor: string;
+    furColor: string;
+    furLenght: string;
+    size: number; //tamanho em cm do pet
+    weight: number; //peso em kg
   };
 };
 
@@ -70,7 +88,7 @@ export const PetDetail = () => {
     const result = await getAnimal(_id);
     setData(await result.result);
     setIsLoading(false);
-    console.log(await result.result);
+    console.log(await result.result.petVaccines.length);
   };
 
   const handleGoBack = () => {
@@ -98,53 +116,58 @@ export const PetDetail = () => {
           <BoxContainer>
             <Box>
               <BoxTitle>Tamanho</BoxTitle>
-              <BoxData>23cm</BoxData>
+              <BoxData>{data?.physicalCharacteristics.size}cm</BoxData>
             </Box>
             <Box>
               <BoxTitle>Peso</BoxTitle>
-              <BoxData>3,5Kg</BoxData>
+              <BoxData>{data?.physicalCharacteristics.weight}Kg</BoxData>
             </Box>
             <Box>
               <BoxTitle>Cor</BoxTitle>
-              <BoxData>Branco e Laranja</BoxData>
+              <BoxData>{data?.physicalCharacteristics.furColor}</BoxData>
             </Box>
           </BoxContainer>
           <AboutContainer>
-            <AboutTitle>Observação</AboutTitle>
-            <AboutData>Aprecia brinquedos interativos</AboutData>
+            <AboutTitle>Observação:</AboutTitle>
+            <AboutData>{data?.petObs}</AboutData>
           </AboutContainer>
           <ItemContainer>
             <ItemTitle>Vacinas: </ItemTitle>
-            <ItemContainerBox>
-              <ItemBox>
-                <ItemData>V3</ItemData>
-              </ItemBox>
-              <ItemBox>
-                <ItemData>Raiva</ItemData>
-              </ItemBox>
-              <ItemBox>
-                <ItemData>V4</ItemData>
-              </ItemBox>
-              <ItemBox>
-                <ItemData>V5</ItemData>
-              </ItemBox>
-              <ItemBox>
-                <ItemData>V8</ItemData>
-              </ItemBox>
-            </ItemContainerBox>
+            {data?.petVaccines?.length == 0 ? (
+              <AboutData>Nenhuma vacina cadastrada</AboutData>
+            ) : (
+              <ItemContainerBox>
+                {data?.petVaccines?.map((vacc) => (
+                  <ItemBox key={vacc}>
+                    <ItemData>{vacc}</ItemData>
+                  </ItemBox>
+                ))}
+              </ItemContainerBox>
+            )}
           </ItemContainer>
           <AboutContainer>
-            <AboutTitle>Personalidade</AboutTitle>
-            <AboutData>independente</AboutData>
+            <AboutTitle>Personalidade:</AboutTitle>
+            <AboutData>{data?.behavioralCharacteristics.personality}</AboutData>
           </AboutContainer>
           <AboutContainer>
-            <AboutTitle>Comorbidades</AboutTitle>
-            <AboutData>Problema renal</AboutData>
+            <AboutTitle>Comorbidades:</AboutTitle>
+            <AboutData>{data?.petComorbidities}</AboutData>
           </AboutContainer>
           <AboutContainer>
-            <AboutTitle>Saúde</AboutTitle>
-            <AboutData>Saudável</AboutData>
+            <AboutTitle>Saúde:</AboutTitle>
+            <AboutData>
+              {data?.petStatus.petCurrentStatus == "0"
+                ? "Saudável"
+                : data?.petStatus.petCurrentStatus == "1"
+                ? "Precisa de atenção"
+                : data?.petStatus.petCurrentStatus == "2"
+                ? "Precisa de atenção urgente"
+                : "Não informado"}
+            </AboutData>
           </AboutContainer>
+          <ContainerButton>
+            <Button title='Atualizar cadastro' type='purple' />
+          </ContainerButton>
         </Container>
       </ScrollView>
     </Wrapper>

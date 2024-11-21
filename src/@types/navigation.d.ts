@@ -11,6 +11,7 @@ export declare global {
       login: undefined;
       profile: undefined;
       profileList: undefined;
+      petUpdate: { _id: string };
     }
   }
 }

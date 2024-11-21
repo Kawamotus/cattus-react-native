@@ -27,11 +27,10 @@ export const Clickable = styled(TouchableOpacity)`
   left: 8px;
 `;
 
-export const ClickableLogout = styled(TouchableOpacity)`
+export const ContainerButton = styled.View`
   align-items: center;
   justify-content: center;
-  flex-direction: row;
-  margin-top: 80px;
+  margin-bottom: 8px;
 `;
 
 //animal data
@@ -51,6 +50,8 @@ export const BoxContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-bottom: 4px;
+  margin-top: 4px;
 `;
 
 export const Box = styled.View`
@@ -77,7 +78,7 @@ export const BoxData = styled.Text`
 `;
 
 export const AboutContainer = styled.View`
-  padding: 16px;
+  padding: 24px;
   padding-top: 0;
 `;
 
@@ -95,7 +96,7 @@ export const AboutData = styled.Text`
 `;
 
 export const ItemContainer = styled.View`
-  padding: 16px;
+  padding: 24px;
   padding-top: 0;
   max-width: 400px;
 `;
