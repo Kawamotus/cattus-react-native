@@ -36,7 +36,7 @@ type RouteParams = {
   _id: string;
 };
 
-type PetData = {
+export type PetData = {
   _id: string;
   petBirth: string;
   petCharacteristics: {
@@ -88,7 +88,6 @@ export const PetDetail = () => {
     const result = await getAnimal(_id);
     setData(await result.result);
     setIsLoading(false);
-    console.log(await result.result.petVaccines.length);
   };
 
   const handleGoBack = () => {
@@ -166,7 +165,11 @@ export const PetDetail = () => {
             </AboutData>
           </AboutContainer>
           <ContainerButton>
-            <Button title='Atualizar cadastro' type='purple' />
+            <Button
+              title='Atualizar cadastro'
+              type='purple'
+              onPress={() => navigation.navigate("petUpdate", { _id })}
+            />
           </ContainerButton>
         </Container>
       </ScrollView>

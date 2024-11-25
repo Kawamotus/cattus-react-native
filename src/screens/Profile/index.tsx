@@ -40,7 +40,7 @@ export const Profile = () => {
   };
 
   const handleBack = () => {
-    navigation.goBack();
+    navigation.navigate("home");
   };
 
   const handleExit = async () => {
