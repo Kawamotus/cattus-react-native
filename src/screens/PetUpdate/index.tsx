@@ -17,6 +17,11 @@ import {
   TextDate,
   ContainerSpaceBeetween,
   CircleButton,
+  ContainerAddVacc,
+  InputVacc,
+  SquareAddVacc,
+  TextData,
+  ContainerItemVacc,
 } from "./styles";
 import { HeaderTitleBack } from "@components/HeaderTitleBack";
 import { PetData } from "@screens/PetDetail";
@@ -40,6 +45,7 @@ export const PetUpdate = () => {
   const [data, setData] = React.useState<PetData>();
   const [isLoading, setIsLoading] = React.useState(false);
   const [showDatePicker, setShowDatePicker] = React.useState(false);
+  const [vaccArray, setVaccArray] = React.useState("");
 
   const [petName, setPetName] = React.useState("");
   const [petBirth, setPetBirth]: any = React.useState(new Date());
@@ -56,6 +62,7 @@ export const PetUpdate = () => {
   const [activityLevel, setActivityLevel] = React.useState("");
   const [petComorbidities, setPetComorbidities] = React.useState("");
   const [petPicture, setPetPicture] = React.useState("");
+  const [petVaccines, setPetVaccines] = React.useState<Array<string>>();
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -82,12 +89,22 @@ export const PetUpdate = () => {
     setActivityLevel(result.result.behavioralCharacteristics.activityLevel);
     setPetComorbidities(result.result.petComorbidities);
     setPetPicture(result.result.petPicture);
+    setPetVaccines(result.result.petVaccines);
   };
 
   const changeDate = (event: any, selectedDate?: Date) => {
     setShowDatePicker(false);
     if (selectedDate) setPetBirth(selectedDate);
   };
+
+  const addVacc = () => {
+    if (vaccArray.trim() !== "") {
+      setPetVaccines((prevItems: any) => [...prevItems, vaccArray.trim()]);
+      setVaccArray("");
+    }
+  };
+
+  const handlePatchData = async () => {};
 
   React.useEffect(() => {}, []);
 
@@ -227,7 +244,7 @@ export const PetUpdate = () => {
             </ContainerSpaceBeetween>
           </ContainerData>
           <ContainerData>
-            <TitleData>Cor dos olhos - colocar seletor:</TitleData>
+            <TitleData>Cor dos olhos:</TitleData>
             <ContainerRow>
               <SelectButtonColorWithThreePerLine
                 onPress={() => setEyeColor("castanho")}
@@ -280,7 +297,7 @@ export const PetUpdate = () => {
           </ContainerData>
           <ContainerData>
             <TitleData>Personalidade:</TitleData>
-            <ContainerTwoRows>
+            <ContainerRow>
               <SelectButtonColorWithThreePerLine
                 onPress={() => setPersonality("amigável")}
                 active={personality == "amigável"}>
@@ -296,7 +313,7 @@ export const PetUpdate = () => {
                 active={personality == "brincalhão"}>
                 <TitleData>Brincalhão</TitleData>
               </SelectButtonColorWithThreePerLine>
-            </ContainerTwoRows>
+            </ContainerRow>
             <ContainerRow>
               <SelectButtonTwoOptions
                 onPress={() => setPersonality("independente")}
@@ -311,7 +328,7 @@ export const PetUpdate = () => {
             </ContainerRow>
           </ContainerData>
           <ContainerData>
-            <TitleData>Nível de atividade</TitleData>
+            <TitleData>Nível de atividade:</TitleData>
             <ContainerRow>
               <SelectButtonColorWithThreePerLine
                 active={activityLevel == "ativo"}
@@ -338,14 +355,32 @@ export const PetUpdate = () => {
             />
           </ContainerData>
           <ContainerData>
-            <TitleData>
-              Vacinas - colocar um map com um + pra adicionar as vacinas ou um
-              seletor com as possíveis vacinas:
-            </TitleData>
-            <InputText value={data?.petName} />
+            <TitleData>Vacinas:</TitleData>
+            <ContainerAddVacc>
+              <InputVacc
+                value={vaccArray}
+                onChangeText={setVaccArray}
+                placeholder='Adicione uma vacina'
+                placeholderTextColor={theme.gray200}
+              />
+              <SquareAddVacc onPress={addVacc}>
+                <Plus color={theme.green300} size={32} />
+              </SquareAddVacc>
+            </ContainerAddVacc>
+            {petVaccines?.length == 0 ? (
+              <ContainerItemVacc empty>
+                <TextData>Nenhuma vacina adicionada D:</TextData>
+              </ContainerItemVacc>
+            ) : (
+              petVaccines?.map((vacc) => (
+                <ContainerItemVacc key={vacc}>
+                  <TextData>{vacc}</TextData>
+                </ContainerItemVacc>
+              ))
+            )}
           </ContainerData>
           <ContainerData>
-            <Button title='Botaumzão' />
+            <Button title='Atualizar' />
           </ContainerData>
         </ContainerBody>
       </ScrollView>

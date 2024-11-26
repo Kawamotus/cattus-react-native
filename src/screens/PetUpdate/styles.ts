@@ -18,6 +18,7 @@ export const ContainerBody = styled.View`
 export const ContainerData = styled.View`
   margin-top: 16px;
   gap: 12px;
+  padding: 4px;
 `;
 
 export const ContainerRow = styled.View`
@@ -42,8 +43,28 @@ export const ContainerSpaceBeetween = styled.View`
   width: 320px;
 `;
 
+export const ContainerAddVacc = styled.View`
+  width: 320px;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const ContainerItemVacc = styled.View`
+  width: 320px;
+  height: 24px;
+  align-items: ${({ empty }: any) => (empty ? "center" : "")};
+  justify-content: center;
+`;
+
 export const TitleData = styled.Text`
   font-family: ${({ theme }: any) => theme.fontBold};
+  color: ${({ theme, black }: any) =>
+    black == true ? theme.background : theme.text};
+  font-size: ${({ size }: any) => (size == "g" ? "20px" : "16px")};
+`;
+
+export const TextData = styled.Text`
+  font-family: ${({ theme }: any) => theme.font};
   color: ${({ theme, black }: any) =>
     black == true ? theme.background : theme.text};
   font-size: ${({ size }: any) => (size == "g" ? "20px" : "16px")};
@@ -114,6 +135,15 @@ export const CircleButton = styled(TouchableOpacity)`
   margin-bottom: 2px;
 `;
 
+export const SquareAddVacc = styled(TouchableOpacity)`
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 52px;
+  background-color: ${({ theme }: any) => theme.black200};
+  border-radius: 0 8px 8px 0;
+`;
+
 export const SelectDate = styled(TouchableOpacity)`
   height: 52px;
   width: 154px;
@@ -121,4 +151,15 @@ export const SelectDate = styled(TouchableOpacity)`
   border-radius: 8px;
   align-items: center;
   justify-content: center;
+`;
+
+export const InputVacc = styled.TextInput`
+  height: 52px;
+  width: 270px;
+  border-radius: 8px 0 0 8px;
+  color: ${({ theme }: any) => theme.white100};
+  font-family: ${({ theme }: any) => theme.font};
+  font-size: 16px;
+  background-color: ${({ theme }: any) => theme.black200};
+  padding: 8px;
 `;

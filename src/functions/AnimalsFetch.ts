@@ -81,3 +81,32 @@ export const postAnimal = async (formData: FormData) => {
   const response = await result.json();
   return response;
 };
+
+export const patchAnimal = async (id: string, body: AnimalProps) => {
+  const token = await getToken();
+  const result = await fetch(`${Path}/animal/update/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: token,
+    },
+    body: JSON.stringify(body),
+  });
+
+  const response = await result.json();
+  return response;
+};
+
+export const uploadImage = async (body: any) => {
+  const token = await getToken();
+  const result = await fetch(`${Path}/upload-image`, {
+    method: "POST",
+    headers: {
+      authorization: token,
+    },
+    body: body,
+  });
+
+  const response = await result.json();
+  return response;
+};
