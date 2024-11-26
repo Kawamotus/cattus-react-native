@@ -20,6 +20,7 @@ import { Picker } from "@react-native-picker/picker";
 import { Camera, Images } from "lucide-react-native";
 import { postAnimal } from "src/functions/AnimalsFetch";
 import { getUser } from "@storage/user";
+import { formatDate } from "@utils/utils";
 
 export const PetRegister = () => {
   const [name, setName] = React.useState("");
@@ -30,9 +31,6 @@ export const PetRegister = () => {
   const [gender, setGender] = React.useState("Fêmea");
   const [obs, setObs] = React.useState("");
 
-  const dia = String(date.getDate()).padStart(2, "0");
-  const mes = String(date.getMonth() + 1).padStart(2, "0"); // Mês começa do 0
-  const ano = date.getFullYear();
   //petName, petBirth, petGender, petObs e petPicture
 
   const theme = useTheme();
@@ -87,7 +85,6 @@ export const PetRegister = () => {
   const changeDate = (event: any, selectedDate?: Date) => {
     setShow(false);
     if (selectedDate) setDate(selectedDate);
-    console.log(date);
   };
 
   const sendData = async () => {
@@ -138,7 +135,7 @@ export const PetRegister = () => {
           <InputText placeholder='Nome' onChangeText={setName} value={name} />
           <Button
             title={
-              !date ? "Data de Nascimento" : `Nasceu em ${dia}/${mes}/${ano}?`
+              !date ? "Data de Nascimento" : `Nasceu em ${formatDate(date)}?`
             }
             onPress={() => setShow(!show)}
           />

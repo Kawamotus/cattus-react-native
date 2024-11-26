@@ -16,28 +16,47 @@ export const ContainerBody = styled.View`
 `;
 
 export const ContainerData = styled.View`
-  margin-top: 8px;
+  margin-top: 16px;
+  gap: 12px;
 `;
 
 export const ContainerRow = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   gap: 8px;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ContainerTwoRows = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 4px;
+  margin-bottom: 0;
+`;
+
+export const ContainerSpaceBeetween = styled.View`
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 320px;
 `;
 
 export const TitleData = styled.Text`
   font-family: ${({ theme }: any) => theme.fontBold};
   color: ${({ theme, black }: any) =>
     black == true ? theme.background : theme.text};
-  font-size: 16px;
+  font-size: ${({ size }: any) => (size == "g" ? "20px" : "16px")};
+`;
+
+export const TextDate = styled.Text`
+  font-family: ${({ theme }: any) => theme.fontBold};
+  color: ${({ theme, black }: any) =>
+    black == true ? theme.background : theme.text};
+  font-size: 20px;
   margin-bottom: 4px;
+  width: 154px;
+  text-align: center;
 `;
 
 //a ordem que os parâmetros são passados importa
@@ -50,7 +69,7 @@ export const SelectButtonTwoOptions = styled(TouchableOpacity)`
   border-radius: 8px;
   border: 2px;
   border-color: ${({ theme, type }: any) =>
-    type == true ? theme.green300 : theme.black300};
+    type ? theme.green300 : theme.black300};
 `;
 
 export const SelectButtonColorWithThreePerLine = styled(TouchableOpacity)`
@@ -69,8 +88,37 @@ export const SelectButtonColorWithThreePerLine = styled(TouchableOpacity)`
       ? theme.brown
       : type == "mesclada"
       ? theme.mesclada
+      : type == "azul"
+      ? theme.blue
+      : type == "verde"
+      ? theme.green
       : theme.black300};
   align-items: center;
   justify-content: center;
   border-radius: 8px;
+  border: ${({ active }: any) => (active ? "2px" : 0)};
+  border-color: ${({ theme, active }: any) =>
+    active ? theme.green300 : theme.black300};
+`;
+
+export const CircleButton = styled(TouchableOpacity)`
+  border-radius: 40px;
+  height: 36px;
+  width: 36px;
+  background-color: ${({ theme }: any) => theme.black300};
+  border: 2px;
+  border-color: ${({ theme }: any) => theme.white};
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+  margin-bottom: 2px;
+`;
+
+export const SelectDate = styled(TouchableOpacity)`
+  height: 52px;
+  width: 154px;
+  background-color: ${({ theme }: any) => theme.purple400};
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
 `;

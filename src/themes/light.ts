@@ -27,4 +27,12 @@ export default {
   alert: "#ffbc11",
   ok: "#138636",
   danger: "#c91432",
+  black: "#000",
+  white: "#fffff0",
+  gray: "#3e424b",
+  brown: "#622a0f",
+  orange: "#ff6600",
+  blue: "#4594ae",
+  green: "#2f6f46",
+  mesclada: "#fc0fc0",
 };

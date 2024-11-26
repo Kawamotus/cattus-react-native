@@ -13,6 +13,10 @@ import {
   SelectButtonTwoOptions,
   SelectButtonColorWithThreePerLine,
   ContainerTwoRows,
+  SelectDate,
+  TextDate,
+  ContainerSpaceBeetween,
+  CircleButton,
 } from "./styles";
 import { HeaderTitleBack } from "@components/HeaderTitleBack";
 import { PetData } from "@screens/PetDetail";
@@ -24,6 +28,9 @@ import { getAnimal } from "src/functions/AnimalsFetch";
 import { InputText } from "@components/InputText";
 import { useTheme } from "@themes";
 import { Button } from "@components/Button";
+import { formatDate } from "@utils/utils";
+import RNDateTimePicker from "@react-native-community/datetimepicker";
+import { Minus, Plus } from "lucide-react-native";
 
 type RouteParams = {
   _id: string;
@@ -32,11 +39,23 @@ type RouteParams = {
 export const PetUpdate = () => {
   const [data, setData] = React.useState<PetData>();
   const [isLoading, setIsLoading] = React.useState(false);
+  const [showDatePicker, setShowDatePicker] = React.useState(false);
 
   const [petName, setPetName] = React.useState("");
+  const [petBirth, setPetBirth]: any = React.useState(new Date());
   const [petGender, setPetGender] = React.useState("");
   const [petCastrated, setPetCastrated] = React.useState("");
   const [furColor, setFurColor] = React.useState("");
+  const [petBreed, setPetBreed] = React.useState("");
+  const [petObs, setPetObs] = React.useState("");
+  const [eyeColor, setEyeColor] = React.useState("");
+  const [furLength, setFurLength] = React.useState("");
+  const [size, setSize] = React.useState(0);
+  const [weight, setWeight] = React.useState(0);
+  const [personality, setPersonality] = React.useState("");
+  const [activityLevel, setActivityLevel] = React.useState("");
+  const [petComorbidities, setPetComorbidities] = React.useState("");
+  const [petPicture, setPetPicture] = React.useState("");
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -49,9 +68,28 @@ export const PetUpdate = () => {
     const result = await getAnimal(_id);
     setData(await result.result);
     setIsLoading(false);
+    setPetName(result.result.petName);
     setPetGender(result.result.petGender);
     setPetCastrated(result.result.petCharacteristics.petCastrated);
+    setPetBirth(result.result.petBirth);
+    setPetBreed(result.result.petCharacteristics.petBreed);
+    setPetObs(result.result.petObs);
+    setEyeColor(result.result.physicalCharacteristics.eyeColor);
+    setFurLength(result.result.physicalCharacteristics.furLength);
+    setSize(result.result.physicalCharacteristics.size);
+    setWeight(result.result.physicalCharacteristics.weight);
+    setPersonality(result.result.behavioralCharacteristics.personality);
+    setActivityLevel(result.result.behavioralCharacteristics.activityLevel);
+    setPetComorbidities(result.result.petComorbidities);
+    setPetPicture(result.result.petPicture);
   };
+
+  const changeDate = (event: any, selectedDate?: Date) => {
+    setShowDatePicker(false);
+    if (selectedDate) setPetBirth(selectedDate);
+  };
+
+  React.useEffect(() => {}, []);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -75,7 +113,7 @@ export const PetUpdate = () => {
               backgroundColor: theme.background,
               borderRadius: 0,
             }}
-            source={data?.petPicture}
+            source={petPicture}
             contentFit='cover'
             transition={1000}
           />
@@ -83,11 +121,23 @@ export const PetUpdate = () => {
         <ContainerBody>
           <ContainerData>
             <TitleData>Nome:</TitleData>
-            <InputText value={data?.petName} />
+            <InputText value={petName} onChangeText={setPetName} />
           </ContainerData>
           <ContainerData>
-            <TitleData>Data de nascimento - arrumar amanha:</TitleData>
-            <InputText value={data?.petBirth} />
+            <TitleData>Data de nascimento:</TitleData>
+            <ContainerRow>
+              <TextDate>{formatDate(petBirth)}</TextDate>
+              <SelectDate onPress={() => setShowDatePicker(!showDatePicker)}>
+                <TitleData>Selecione</TitleData>
+              </SelectDate>
+            </ContainerRow>
+            {showDatePicker && (
+              <RNDateTimePicker
+                value={new Date(petBirth)}
+                mode='date'
+                onChange={changeDate}
+              />
+            )}
           </ContainerData>
           <ContainerData>
             <TitleData>Gênero:</TitleData>
@@ -106,7 +156,7 @@ export const PetUpdate = () => {
           </ContainerData>
           <ContainerData>
             <TitleData>Observações:</TitleData>
-            <InputText value={data?.petObs} />
+            <InputText value={petObs} />
           </ContainerData>
           <ContainerData>
             <TitleData>Castrado?</TitleData>
@@ -125,14 +175,10 @@ export const PetUpdate = () => {
           </ContainerData>
           <ContainerData>
             <TitleData>Raça:</TitleData>
-            <InputText value={data?.petCharacteristics.petBreed} />
+            <InputText value={petBreed} />
           </ContainerData>
           <ContainerData>
-            <TitleData>Tamanho - mexer amanha - colocar seletor:</TitleData>
-            <InputText value={data?.petCharacteristics.petSize} />
-          </ContainerData>
-          <ContainerData>
-            <TitleData>Cor do pelo - colocar seletor:</TitleData>
+            <TitleData>Cor do pelo:</TitleData>
             <ContainerTwoRows>
               <SelectButtonColorWithThreePerLine
                 onPress={() => setFurColor("preto")}
@@ -169,40 +215,132 @@ export const PetUpdate = () => {
             </ContainerRow>
           </ContainerData>
           <ContainerData>
-            <TitleData>Tamanho do pelo:</TitleData>
-            <InputText value={data?.physicalCharacteristics.furLenght} />
+            <TitleData>Tamanho do Pet:</TitleData>
+            <ContainerSpaceBeetween>
+              <CircleButton onPress={() => setSize(size - 1)}>
+                <Minus color={theme.white} size={24} />
+              </CircleButton>
+              <TitleData size='g'>{size}cm</TitleData>
+              <CircleButton onPress={() => setSize(size + 1)}>
+                <Plus color={theme.white} size={24} />
+              </CircleButton>
+            </ContainerSpaceBeetween>
           </ContainerData>
           <ContainerData>
             <TitleData>Cor dos olhos - colocar seletor:</TitleData>
-            <InputText value={data?.physicalCharacteristics.eyeColor} />
+            <ContainerRow>
+              <SelectButtonColorWithThreePerLine
+                onPress={() => setEyeColor("castanho")}
+                type={eyeColor == "castanho" ? "marrom" : ""}>
+                <TitleData>Castanho</TitleData>
+              </SelectButtonColorWithThreePerLine>
+              <SelectButtonColorWithThreePerLine
+                onPress={() => setEyeColor("azul")}
+                type={eyeColor == "azul" ? "azul" : ""}>
+                <TitleData>Azul</TitleData>
+              </SelectButtonColorWithThreePerLine>
+              <SelectButtonColorWithThreePerLine
+                onPress={() => setEyeColor("verde")}
+                type={eyeColor == "verde" ? "verde" : ""}>
+                <TitleData>Verde</TitleData>
+              </SelectButtonColorWithThreePerLine>
+            </ContainerRow>
           </ContainerData>
           <ContainerData>
-            <TitleData>Peso (em kg):</TitleData>
-            <InputText
-              value={data?.physicalCharacteristics.weight}
-              keyboardType='numeric'
-            />
+            <TitleData>Peso:</TitleData>
+            <ContainerSpaceBeetween>
+              <CircleButton onPress={() => setWeight(weight - 0.1)}>
+                <Minus color={theme.white} size={24} />
+              </CircleButton>
+              <TitleData size='g'>{weight.toFixed(1)}kg</TitleData>
+              <CircleButton onPress={() => setWeight(weight + 0.1)}>
+                <Plus color={theme.white} size={24} />
+              </CircleButton>
+            </ContainerSpaceBeetween>
           </ContainerData>
           <ContainerData>
-            <TitleData>Personalidade - colocar seletor:</TitleData>
-            <InputText value={data?.behavioralCharacteristics.personality} />
+            <TitleData>Tamanho do pelo:</TitleData>
+            <ContainerRow>
+              <SelectButtonColorWithThreePerLine
+                active={furLength == "curto"}
+                onPress={() => setFurLength("curto")}>
+                <TitleData>Curto</TitleData>
+              </SelectButtonColorWithThreePerLine>
+              <SelectButtonColorWithThreePerLine
+                active={furLength == "médio"}
+                onPress={() => setFurLength("médio")}>
+                <TitleData>Médio</TitleData>
+              </SelectButtonColorWithThreePerLine>
+              <SelectButtonColorWithThreePerLine
+                active={furLength == "longo"}
+                onPress={() => setFurLength("longo")}>
+                <TitleData>Longo</TitleData>
+              </SelectButtonColorWithThreePerLine>
+            </ContainerRow>
           </ContainerData>
           <ContainerData>
-            <TitleData>Nível de atividade - colocar seletor:</TitleData>
-            <InputText value={data?.behavioralCharacteristics.activityLevel} />
+            <TitleData>Personalidade:</TitleData>
+            <ContainerTwoRows>
+              <SelectButtonColorWithThreePerLine
+                onPress={() => setPersonality("amigável")}
+                active={personality == "amigável"}>
+                <TitleData>Amigável</TitleData>
+              </SelectButtonColorWithThreePerLine>
+              <SelectButtonColorWithThreePerLine
+                onPress={() => setPersonality("reservado")}
+                active={personality == "reservado"}>
+                <TitleData>Reservado</TitleData>
+              </SelectButtonColorWithThreePerLine>
+              <SelectButtonColorWithThreePerLine
+                onPress={() => setPersonality("brincalhão")}
+                active={personality == "brincalhão"}>
+                <TitleData>Brincalhão</TitleData>
+              </SelectButtonColorWithThreePerLine>
+            </ContainerTwoRows>
+            <ContainerRow>
+              <SelectButtonTwoOptions
+                onPress={() => setPersonality("independente")}
+                type={personality == "independente"}>
+                <TitleData>Independente</TitleData>
+              </SelectButtonTwoOptions>
+              <SelectButtonTwoOptions
+                onPress={() => setPersonality("arisco")}
+                type={personality == "arisco"}>
+                <TitleData>Arisco</TitleData>
+              </SelectButtonTwoOptions>
+            </ContainerRow>
           </ContainerData>
           <ContainerData>
-            <TitleData>Nível do miado - Realmente deixo isso?</TitleData>
-            <InputText value={data?.behavioralCharacteristics.meow} />
+            <TitleData>Nível de atividade</TitleData>
+            <ContainerRow>
+              <SelectButtonColorWithThreePerLine
+                active={activityLevel == "ativo"}
+                onPress={() => setActivityLevel("ativo")}>
+                <TitleData>Ativo</TitleData>
+              </SelectButtonColorWithThreePerLine>
+              <SelectButtonColorWithThreePerLine
+                active={activityLevel == "moderado"}
+                onPress={() => setActivityLevel("moderado")}>
+                <TitleData>Moderado</TitleData>
+              </SelectButtonColorWithThreePerLine>
+              <SelectButtonColorWithThreePerLine
+                active={activityLevel == "calmo"}
+                onPress={() => setActivityLevel("calmo")}>
+                <TitleData>Calmo</TitleData>
+              </SelectButtonColorWithThreePerLine>
+            </ContainerRow>
           </ContainerData>
           <ContainerData>
             <TitleData>Comorbidades:</TitleData>
-            <InputText value={data?.petComorbidities} />
+            <InputText
+              value={petComorbidities}
+              onChangeText={setPetComorbidities}
+            />
           </ContainerData>
           <ContainerData>
             <TitleData>
               Vacinas - colocar um map com um + pra adicionar as vacinas ou um
-              seletor com as possíveis doenças:
+              seletor com as possíveis vacinas:
             </TitleData>
             <InputText value={data?.petName} />
           </ContainerData>
