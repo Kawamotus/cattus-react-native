@@ -49,11 +49,18 @@ export const ContainerAddVacc = styled.View`
   align-items: center;
 `;
 
+export const ContainerGallery = styled.View`
+  margin-top: 16px;
+  flex-direction: row;
+  gap: 4px;
+`;
+
 export const ContainerItemVacc = styled.View`
-  width: 320px;
+  width: 315px;
   height: 24px;
   align-items: ${({ empty }: any) => (empty ? "center" : "")};
-  justify-content: center;
+  justify-content: space-between;
+  flex-direction: row;
 `;
 
 export const TitleData = styled.Text`

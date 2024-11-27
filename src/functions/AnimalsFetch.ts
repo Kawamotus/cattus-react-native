@@ -6,18 +6,25 @@ export type AnimalProps = {
   _id?: string;
   petName?: string;
   petBirth?: Date;
-  petGender?: "Fêmea" | "Macho";
+  petGender?: "Fêmea" | "Macho" | string;
   petPicture?: string;
   petObs?: string;
   petCharacteristics?: {
-    petCastrated?: "Sim" | "Não";
+    petCastrated?: "Sim" | "Não" | string;
     petBreed?: string;
     petSize?: string;
   };
   physicalCharacteristics?: {
-    furColor?: "preta" | "branca" | "cinza" | "laranja" | "marrom" | "mesclada";
-    furLength?: "curto" | "médio" | "longo";
-    eyeColor?: "azul" | "castanho" | "verde";
+    furColor?:
+      | "preta"
+      | "branca"
+      | "cinza"
+      | "laranja"
+      | "marrom"
+      | "mesclada"
+      | string;
+    furLength?: "curto" | "médio" | "longo" | string;
+    eyeColor?: "azul" | "castanho" | "verde" | string;
     size?: number;
     weight?: number;
   };
@@ -27,8 +34,9 @@ export type AnimalProps = {
       | "reservado"
       | "brincalhão"
       | "independente"
-      | "arisco";
-    activityLevel?: "ativo" | "moderado" | "calmo";
+      | "arisco"
+      | string;
+    activityLevel?: "ativo" | "moderado" | "calmo" | string;
     socialBehavior?: string;
     meow?: string;
   };
@@ -39,17 +47,21 @@ export type AnimalProps = {
     petOccurrencesQuantity: number;
     petLastOccurrence: Date;
   };
+  petVaccines: [] | string | any;
 };
 
 export const getAnimals = async () => {
   const company = await getUser();
   const token = await getToken();
-  const result = await fetch(`${Path}/animal/select-all/${company.company}`, {
-    method: "GET",
-    headers: {
-      authorization: token,
-    },
-  });
+  const result = await fetch(
+    `${Path}/animal/select-all/${company.company}?limit=1000`,
+    {
+      method: "GET",
+      headers: {
+        authorization: token,
+      },
+    }
+  );
 
   const data = await result.json();
   return data;
@@ -97,7 +109,9 @@ export const patchAnimal = async (id: string, body: AnimalProps) => {
   return response;
 };
 
-export const uploadImage = async (body: any) => {
+export const uploadImage = async (body: FormData) => {
+  console.log("====================================");
+
   const token = await getToken();
   const result = await fetch(`${Path}/upload-image`, {
     method: "POST",

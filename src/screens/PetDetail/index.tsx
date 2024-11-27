@@ -119,7 +119,9 @@ export const PetDetail = () => {
             </Box>
             <Box>
               <BoxTitle>Peso</BoxTitle>
-              <BoxData>{data?.physicalCharacteristics.weight}Kg</BoxData>
+              <BoxData>
+                {data?.physicalCharacteristics.weight.toFixed(1)}Kg
+              </BoxData>
             </Box>
             <Box>
               <BoxTitle>Cor</BoxTitle>

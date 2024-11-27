@@ -22,20 +22,28 @@ import {
   SquareAddVacc,
   TextData,
   ContainerItemVacc,
+  ContainerGallery,
 } from "./styles";
 import { HeaderTitleBack } from "@components/HeaderTitleBack";
 import { PetData } from "@screens/PetDetail";
 import { Image } from "expo-image";
-import { ScrollView } from "react-native";
+import { Alert, ScrollView, TouchableOpacity } from "react-native";
 import React from "react";
 import { Loading } from "@components/Loading";
-import { getAnimal } from "src/functions/AnimalsFetch";
+import {
+  getAnimal,
+  patchAnimal,
+  uploadImage,
+} from "src/functions/AnimalsFetch";
 import { InputText } from "@components/InputText";
 import { useTheme } from "@themes";
 import { Button } from "@components/Button";
 import { formatDate } from "@utils/utils";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
-import { Minus, Plus } from "lucide-react-native";
+import { Camera, Images, Minus, Plus, X } from "lucide-react-native";
+import { getUser } from "@storage/user";
+import { ButtonGallery } from "@screens/PetRegister/styles";
+import { pickImage, takePhoto } from "@components/PicImage";
 
 type RouteParams = {
   _id: string;
@@ -62,6 +70,7 @@ export const PetUpdate = () => {
   const [activityLevel, setActivityLevel] = React.useState("");
   const [petComorbidities, setPetComorbidities] = React.useState("");
   const [petPicture, setPetPicture] = React.useState("");
+  const [petPictureData, setPetPictureData]: any = React.useState();
   const [petVaccines, setPetVaccines] = React.useState<Array<string>>();
 
   const navigation = useNavigation();
@@ -104,7 +113,84 @@ export const PetUpdate = () => {
     }
   };
 
-  const handlePatchData = async () => {};
+  const removeVacc = (vacc: string) => {
+    const newVaccArray = petVaccines?.filter((item) => item != vacc);
+    setPetVaccines(newVaccArray);
+  };
+
+  const takeImage = async () => {
+    const result = await takePhoto();
+    if (result?.uri) {
+      setPetPicture(result.uri);
+      setPetPictureData(result);
+      return;
+    }
+    Alert.alert("Erro", "Operação cancelada!");
+  };
+
+  const pickPhoto = async () => {
+    const result = await pickImage();
+    if (result?.uri) {
+      setPetPicture(result.uri);
+      setPetPictureData(result);
+      return;
+    }
+    Alert.alert("Erro", "Operação cancelada!");
+  };
+
+  const handlePatchData = async () => {
+    const user = await getUser();
+
+    if (petPicture != data?.petPicture) {
+      setIsLoading(true);
+      const response = await fetch(petPicture);
+      const blob = await response.blob();
+
+      console.log(petPictureData);
+
+      const formData = new FormData();
+      const bodyImage = {
+        uri: petPicture,
+        name: petPictureData.fileName,
+        type: blob.type,
+      };
+
+      formData.append("imagem", bodyImage);
+
+      const { img_url } = await uploadImage(formData);
+      setPetPicture(await img_url);
+    }
+
+    const body = {
+      petName: petName,
+      petGender: petGender,
+      petCastrated: petCastrated,
+      petBirth: petBirth,
+      petObs: petObs,
+      petVaccines: petVaccines,
+      petComorbidities: petComorbidities,
+      petPicture: petPicture,
+      petCharacteristics: {
+        petCastrated: petCastrated,
+        petBreed: petBreed,
+      },
+      physicalCharacteristics: {
+        eyeColor: eyeColor,
+        furLength: furLength,
+        size: size,
+        weight: weight,
+      },
+      behavioralCharacteristics: {
+        personality: personality,
+        activityLevel: activityLevel,
+      },
+      company: user.company,
+    };
+
+    const result = await patchAnimal(_id, body);
+    navigation.navigate("petDetail", { _id });
+    Alert.alert("Deu certo", "Pet atualizado com sucesso!");
+  };
 
   React.useEffect(() => {}, []);
 
@@ -136,6 +222,14 @@ export const PetUpdate = () => {
           />
         </ContainerImage>
         <ContainerBody>
+          <ContainerGallery>
+            <ButtonGallery onPress={takeImage}>
+              <Camera color={theme.white400} size={30} />
+            </ButtonGallery>
+            <ButtonGallery onPress={pickPhoto}>
+              <Images color={theme.white400} size={30} />
+            </ButtonGallery>
+          </ContainerGallery>
           <ContainerData>
             <TitleData>Nome:</TitleData>
             <InputText value={petName} onChangeText={setPetName} />
@@ -173,7 +267,7 @@ export const PetUpdate = () => {
           </ContainerData>
           <ContainerData>
             <TitleData>Observações:</TitleData>
-            <InputText value={petObs} />
+            <InputText value={petObs} onChangeText={setPetObs} />
           </ContainerData>
           <ContainerData>
             <TitleData>Castrado?</TitleData>
@@ -375,12 +469,15 @@ export const PetUpdate = () => {
               petVaccines?.map((vacc) => (
                 <ContainerItemVacc key={vacc}>
                   <TextData>{vacc}</TextData>
+                  <TouchableOpacity onPress={() => removeVacc(vacc)}>
+                    <X color={theme.danger} size={20} />
+                  </TouchableOpacity>
                 </ContainerItemVacc>
               ))
             )}
           </ContainerData>
           <ContainerData>
-            <Button title='Atualizar' />
+            <Button title='Atualizar' onPress={handlePatchData} />
           </ContainerData>
         </ContainerBody>
       </ScrollView>
