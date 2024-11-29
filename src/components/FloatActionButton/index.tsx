@@ -29,7 +29,7 @@ export const FloatActionButton = ({ ...rest }: TouchableOpacityProps) => {
           <FloatingButton
             bottom='170px'
             right='20px'
-            onPress={() => alert("Opção 2")}>
+            onPress={() => navigation.navigate("petSearch")}>
             <Search color={theme.text} size={24} />
           </FloatingButton>
           <FloatingButton

@@ -1,8 +1,9 @@
 import { Dimensions } from "react-native";
 import { PieChart } from "react-native-chart-kit";
-import { ChartContainer, Container } from "./styles";
+import { ChartContainer, Container, ContainerCharts, Title } from "./styles";
 import { Header } from "@components/Header";
 import { useTheme } from "@themes";
+import { Pie } from "@components/Charts/Pie";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -10,17 +11,41 @@ export const Graphics = () => {
   const theme = useTheme();
   const data = [
     {
-      name: "Cats",
-      population: 35,
+      name: "Fêmea(s)",
+      population: 2,
       color: "green",
-      legendFontColor: theme.black400,
+      legendFontColor: theme.text,
       legendFontSize: 16,
     },
     {
-      name: "Dogs",
-      population: 40,
+      name: "Macho(s)",
+      population: 4,
       color: "orange",
-      legendFontColor: theme.black400,
+      legendFontColor: theme.text,
+      legendFontSize: 16,
+    },
+  ];
+
+  const alertData = [
+    {
+      name: "Saudável",
+      population: 3,
+      color: theme.ok,
+      legendFontColor: theme.text,
+      legendFontSize: 16,
+    },
+    {
+      name: "Alerta",
+      population: 2,
+      color: theme.alert,
+      legendFontColor: theme.text,
+      legendFontSize: 16,
+    },
+    {
+      name: "Perigo",
+      population: 1,
+      color: theme.danger,
+      legendFontColor: theme.text,
       legendFontSize: 16,
     },
   ];
@@ -28,21 +53,27 @@ export const Graphics = () => {
   return (
     <Container>
       <Header />
-      <ChartContainer>
-        <PieChart
+      <ContainerCharts>
+        <Title>Quantidade de Gatos</Title>
+        <Pie
           data={data}
-          width={screenWidth}
-          height={200}
-          chartConfig={{
-            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-          }}
-          accessor='population'
+          paddingLeft='-4'
           backgroundColor='transparent'
-          paddingLeft='16'
-          absolute //número absoluto ou porcentagem
+          accessor='population'
+          width={screenWidth}
+          height={150}
+          absolute
         />
-      </ChartContainer>
+        <Title>Saúde dos Gatos</Title>
+        <Pie
+          data={alertData}
+          paddingLeft='-8'
+          backgroundColor='transparent'
+          accessor='population'
+          width={screenWidth}
+          height={150}
+        />
+      </ContainerCharts>
     </Container>
   );
 };

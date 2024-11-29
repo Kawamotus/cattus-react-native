@@ -1,5 +1,13 @@
 import { CirclePic } from "@components/CirclePic";
-import { Container, ContainerCharts, Title } from "./styles";
+import {
+  Container,
+  ContainerAlignCenter,
+  ContainerCharts,
+  ContainerData,
+  ContainerImage,
+  SquareButton,
+  Title,
+} from "./styles";
 import { Header } from "@components/Header";
 import { Dimensions, ScrollView } from "react-native";
 import React from "react";
@@ -8,6 +16,8 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { getAnimals } from "src/functions/AnimalsFetch";
 import { useTheme } from "@themes";
 import { Pie } from "@components/Charts/Pie";
+import { Image } from "expo-image";
+import { Cctv, ListCheck, Plus, Search } from "lucide-react-native";
 
 type AnimalData = {
   _id: string;
@@ -23,47 +33,6 @@ export const Home = () => {
 
   const navigation = useNavigation();
   const theme = useTheme();
-
-  const data = [
-    {
-      name: "Fêmea(s)",
-      population: 2,
-      color: "green",
-      legendFontColor: theme.text,
-      legendFontSize: 16,
-    },
-    {
-      name: "Macho(s)",
-      population: 4,
-      color: "orange",
-      legendFontColor: theme.text,
-      legendFontSize: 16,
-    },
-  ];
-
-  const alertData = [
-    {
-      name: "Saudável",
-      population: 3,
-      color: theme.ok,
-      legendFontColor: theme.text,
-      legendFontSize: 16,
-    },
-    {
-      name: "Alerta",
-      population: 2,
-      color: theme.alert,
-      legendFontColor: theme.text,
-      legendFontSize: 16,
-    },
-    {
-      name: "Perigo",
-      population: 1,
-      color: theme.danger,
-      legendFontColor: theme.text,
-      legendFontSize: 16,
-    },
-  ];
 
   const handleNavigatePetDetail = (_id: string) => {
     navigation.navigate("petDetail", { _id });
@@ -88,7 +57,9 @@ export const Home = () => {
         <Loading />
       ) : (
         <ScrollView>
-          <Title>Seus pets</Title>
+          <ContainerData>
+            <Title>Seus pets</Title>
+          </ContainerData>
           {animalData ? (
             <ScrollView
               style={{ marginTop: 8, marginBottom: 8, paddingLeft: 8 }}
@@ -129,27 +100,81 @@ export const Home = () => {
             // mudar isso aqui
             <Title>Nenhum animal cadastrado D:</Title>
           )}
-          <ContainerCharts>
-            <Title>Quantidade de Gatos</Title>
-            <Pie
-              data={data}
-              paddingLeft='-4'
-              backgroundColor='transparent'
-              accessor='population'
-              width={screenWidth}
-              height={150}
-              absolute
-            />
-            <Title>Saúde dos Gatos</Title>
-            <Pie
-              data={alertData}
-              paddingLeft='-8'
-              backgroundColor='transparent'
-              accessor='population'
-              width={screenWidth}
-              height={150}
-            />
-          </ContainerCharts>
+          <ContainerData>
+            <Title>O que deseja fazer?</Title>
+            <ContainerAlignCenter>
+              <SquareButton onPress={() => navigation.navigate("petRegister")}>
+                <Plus color={theme.white} size={30} />
+              </SquareButton>
+              <SquareButton onPress={() => navigation.navigate("petList")}>
+                <ListCheck color={theme.white} size={30} />
+              </SquareButton>
+              <SquareButton onPress={() => navigation.navigate("petSearch")}>
+                <Search color={theme.white} size={30} />
+              </SquareButton>
+              <SquareButton onPress={() => navigation.navigate("cameraList")}>
+                <Cctv color={theme.white} size={30} />
+              </SquareButton>
+            </ContainerAlignCenter>
+          </ContainerData>
+          <ContainerData>
+            <Title>Animais em alerta</Title>
+            <ScrollView horizontal>
+              <ContainerImage>
+                <Image
+                  style={{
+                    flex: 1,
+                    backgroundColor: theme.background,
+                    borderRadius: 8,
+                  }}
+                  source='https://cattus-api.s3.amazonaws.com/1731711890787_20240909_011807.jpg'
+                  contentFit='cover'
+                  transition={1000}
+                />
+              </ContainerImage>
+              <ContainerImage>
+                <Image
+                  style={{
+                    flex: 1,
+                    backgroundColor: theme.background,
+                    borderRadius: 8,
+                  }}
+                  source='https://cattus-api.s3.amazonaws.com/1717004687301_Default_profile_picture_of_cat_or_dog_1.jpg'
+                  contentFit='cover'
+                  transition={1000}
+                />
+              </ContainerImage>
+            </ScrollView>
+          </ContainerData>
+          <ContainerData>
+            <Title>Últimos adicionados</Title>
+            <ScrollView horizontal>
+              <ContainerImage>
+                <Image
+                  style={{
+                    flex: 1,
+                    backgroundColor: theme.background,
+                    borderRadius: 8,
+                  }}
+                  source='https://cattus-api.s3.amazonaws.com/1732670311772_bfaf7b52-ec8c-4fd4-bba6-a98bbde87b24.jpeg'
+                  contentFit='cover'
+                  transition={1000}
+                />
+              </ContainerImage>
+              <ContainerImage>
+                <Image
+                  style={{
+                    flex: 1,
+                    backgroundColor: theme.background,
+                    borderRadius: 8,
+                  }}
+                  source='https://cattus-api.s3.amazonaws.com/1717004852099_Default_profile_picture_of_cat_or_dog_3.jpg'
+                  contentFit='cover'
+                  transition={1000}
+                />
+              </ContainerImage>
+            </ScrollView>
+          </ContainerData>
         </ScrollView>
       )}
     </Container>

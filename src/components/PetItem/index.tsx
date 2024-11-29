@@ -1,4 +1,4 @@
-import { Text, TouchableOpacityProps } from "react-native";
+import { TouchableOpacityProps } from "react-native";
 import {
   Color,
   Container,
@@ -8,7 +8,6 @@ import {
   PicAndText,
   TextContainer,
 } from "./styles";
-import { useTheme } from "@themes";
 
 type Props = TouchableOpacityProps & {
   imageSource: string;

@@ -110,8 +110,6 @@ export const patchAnimal = async (id: string, body: AnimalProps) => {
 };
 
 export const uploadImage = async (body: FormData) => {
-  console.log("====================================");
-
   const token = await getToken();
   const result = await fetch(`${Path}/upload-image`, {
     method: "POST",
@@ -119,6 +117,21 @@ export const uploadImage = async (body: FormData) => {
       authorization: token,
     },
     body: body,
+  });
+
+  const response = await result.json();
+  return response;
+};
+
+export const search = async (fields: string) => {
+  const token = await getToken();
+  const result = await fetch(`${Path}/animal/search`, {
+    method: "POST",
+    headers: {
+      authorization: token,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ query: fields, fields: ["petName"] }),
   });
 
   const response = await result.json();
