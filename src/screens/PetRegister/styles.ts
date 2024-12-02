@@ -20,7 +20,6 @@ export const ContainerImage = styled.View`
 `;
 
 export const ContainerForm = styled.View`
-  flex: 1;
   align-items: center;
   margin-bottom: 8px;
 `;

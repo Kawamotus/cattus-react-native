@@ -123,7 +123,7 @@ export const uploadImage = async (body: FormData) => {
   return response;
 };
 
-export const search = async (fields: string) => {
+export const searchAnimal = async (fields: string) => {
   const token = await getToken();
   const result = await fetch(`${Path}/animal/search`, {
     method: "POST",

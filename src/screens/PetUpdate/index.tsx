@@ -270,7 +270,7 @@ export const PetUpdate = () => {
             <InputText value={petObs} onChangeText={setPetObs} />
           </ContainerData>
           <ContainerData>
-            <TitleData>Castrado?</TitleData>
+            <TitleData>Castrado:</TitleData>
             <ContainerRow>
               <SelectButtonTwoOptions
                 onPress={() => setPetCastrated("Sim")}

@@ -6,7 +6,7 @@ export type AlertColorType = "ok" | "alert" | "danger";
 type Props = { type: AlertColorType };
 
 export const Container = styled(TouchableOpacity)<Props>`
-  width: 340px;
+  width: 320px;
   height: 130px;
   background-color: ${({ theme }: any) => theme.black300};
   border-radius: 10px;

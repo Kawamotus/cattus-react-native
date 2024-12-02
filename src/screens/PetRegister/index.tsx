@@ -14,13 +14,18 @@ import { InputText } from "@components/InputText";
 import { Button } from "@components/Button";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
-import { Alert, Image } from "react-native";
+import { Alert, Image, View } from "react-native";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
 import { Camera, Images } from "lucide-react-native";
 import { postAnimal } from "src/functions/AnimalsFetch";
 import { getUser } from "@storage/user";
 import { formatDate } from "@utils/utils";
+import {
+  ContainerRow,
+  SelectButtonTwoOptions,
+  TitleData,
+} from "@screens/PetUpdate/styles";
 
 export const PetRegister = () => {
   const [name, setName] = React.useState("");
@@ -28,7 +33,7 @@ export const PetRegister = () => {
   const [imageData, setImageData] = React.useState("");
   const [date, setDate] = React.useState(new Date());
   const [show, setShow] = React.useState(false);
-  const [gender, setGender] = React.useState("Fêmea");
+  const [gender, setGender] = React.useState("Macho");
   const [obs, setObs] = React.useState("");
 
   //petName, petBirth, petGender, petObs e petPicture
@@ -142,21 +147,20 @@ export const PetRegister = () => {
           {show && (
             <RNDateTimePicker value={date} mode='date' onChange={changeDate} />
           )}
-          <Picker
-            selectedValue={gender}
-            onValueChange={(item) => setGender(item)}
-            style={{
-              height: 50,
-              width: 320,
-              borderRadius: 8,
-              marginBottom: 8,
-              marginTop: 8,
-              backgroundColor: theme.black200,
-              color: theme.gray300,
-            }}>
-            <Picker.Item label='Fêmea' value='Fêmea' />
-            <Picker.Item label='Macho' value='Macho' />
-          </Picker>
+          <View style={{ marginTop: 8, marginBottom: 8 }}>
+            <ContainerRow>
+              <SelectButtonTwoOptions
+                onPress={() => setGender("Macho")}
+                type={gender == "Macho"}>
+                <TitleData>Macho</TitleData>
+              </SelectButtonTwoOptions>
+              <SelectButtonTwoOptions
+                onPress={() => setGender("Fêmea")}
+                type={gender == "Fêmea"}>
+                <TitleData>Fêmea</TitleData>
+              </SelectButtonTwoOptions>
+            </ContainerRow>
+          </View>
           <InputText
             placeholder='Observações'
             onChangeText={setObs}
