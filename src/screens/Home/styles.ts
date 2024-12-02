@@ -18,7 +18,7 @@ export const ContainerData = styled.View`
   margin-right: 12px;
 `;
 
-export const ContainerImage = styled.View`
+export const ContainerImage = styled(TouchableOpacity)`
   height: 200px;
   width: 200px;
   margin-right: 8px;
