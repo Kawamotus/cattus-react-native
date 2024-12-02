@@ -5,7 +5,7 @@ import {
   useRoute,
 } from "@react-navigation/native";
 import React from "react";
-import { getAnimal } from "src/functions/AnimalsFetch";
+import { deleteAnimal, getAnimal } from "src/functions/AnimalsFetch";
 import {
   BackContent,
   Clickable,
@@ -21,7 +21,6 @@ import {
   AboutTitle,
   AboutData,
   ItemContainer,
-  ItemTitle,
   ItemData,
   ItemBox,
   ItemContainerBox,
@@ -29,8 +28,9 @@ import {
 } from "./styles";
 import { ChevronLeft } from "lucide-react-native";
 import { useTheme } from "@themes";
-import { ScrollView } from "react-native";
+import { Alert, ScrollView } from "react-native";
 import { Button } from "@components/Button";
+import { formatDate } from "@utils/utils";
 
 type RouteParams = {
   _id: string;
@@ -94,6 +94,27 @@ export const PetDetail = () => {
     navigation.navigate("petList");
   };
 
+  const handleDelete = async () => {
+    Alert.alert("Atenção!", "Deseja realmente excluir esse pet?", [
+      {
+        text: "Cancelar",
+        style: "cancel",
+      },
+      {
+        text: "Excluir",
+        onPress: async () => {
+          const result = await deleteAnimal(_id);
+          if (result) {
+            navigation.navigate("petList");
+            Alert.alert("Sucesso", "Animal deletado com sucesso!");
+          } else {
+            Alert.alert("Erro", "Falha ao deletar animal!");
+          }
+        },
+      },
+    ]);
+  };
+
   useFocusEffect(
     React.useCallback(() => {
       getData();
@@ -129,11 +150,47 @@ export const PetDetail = () => {
             </Box>
           </BoxContainer>
           <AboutContainer>
+            <AboutTitle>Cor dos olhos: </AboutTitle>
+            <AboutData>
+              {data?.physicalCharacteristics.eyeColor
+                ? data?.physicalCharacteristics.eyeColor
+                : "Ainda não informado"}
+            </AboutData>
+          </AboutContainer>
+          <AboutContainer>
+            <AboutTitle>Data de nascimento: </AboutTitle>
+            <AboutData>{formatDate(data?.petBirth)}</AboutData>
+          </AboutContainer>
+          <AboutContainer>
+            <AboutTitle>Gênero: </AboutTitle>
+            <AboutData>
+              {data?.petGender ? data?.petGender : "Ainda não informado"}
+            </AboutData>
+          </AboutContainer>
+          <AboutContainer>
             <AboutTitle>Observação:</AboutTitle>
-            <AboutData>{data?.petObs}</AboutData>
+            <AboutData>
+              {data?.petObs ? data.petObs : "Ainda não informado"}
+            </AboutData>
+          </AboutContainer>
+          <AboutContainer>
+            <AboutTitle>Castrado:</AboutTitle>
+            <AboutData>
+              {data?.petCharacteristics.petCastrated
+                ? data.petCharacteristics.petCastrated
+                : "Ainda não informado"}
+            </AboutData>
+          </AboutContainer>
+          <AboutContainer>
+            <AboutTitle>Raça:</AboutTitle>
+            <AboutData>
+              {data?.petCharacteristics.petBreed
+                ? data.petCharacteristics.petBreed
+                : "Ainda não informado"}
+            </AboutData>
           </AboutContainer>
           <ItemContainer>
-            <ItemTitle>Vacinas: </ItemTitle>
+            <AboutTitle>Vacinas: </AboutTitle>
             {data?.petVaccines?.length == 0 ? (
               <AboutData>Nenhuma vacina cadastrada</AboutData>
             ) : (
@@ -148,11 +205,27 @@ export const PetDetail = () => {
           </ItemContainer>
           <AboutContainer>
             <AboutTitle>Personalidade:</AboutTitle>
-            <AboutData>{data?.behavioralCharacteristics.personality}</AboutData>
+            <AboutData>
+              {data?.behavioralCharacteristics.personality
+                ? data?.behavioralCharacteristics.personality
+                : "Ainda não informado"}
+            </AboutData>
+          </AboutContainer>
+          <AboutContainer>
+            <AboutTitle>Nível de atividade:</AboutTitle>
+            <AboutData>
+              {data?.behavioralCharacteristics.activityLevel
+                ? data?.behavioralCharacteristics.activityLevel
+                : "Ainda não informado"}
+            </AboutData>
           </AboutContainer>
           <AboutContainer>
             <AboutTitle>Comorbidades:</AboutTitle>
-            <AboutData>{data?.petComorbidities}</AboutData>
+            <AboutData>
+              {data?.petComorbidities
+                ? data?.petComorbidities
+                : "Ainda não informado"}
+            </AboutData>
           </AboutContainer>
           <AboutContainer>
             <AboutTitle>Saúde:</AboutTitle>
@@ -167,6 +240,12 @@ export const PetDetail = () => {
             </AboutData>
           </AboutContainer>
           <ContainerButton>
+            <Button
+              title='Remover pet'
+              type='danger'
+              style={{ marginBottom: 8 }}
+              onPress={() => handleDelete()}
+            />
             <Button
               title='Atualizar cadastro'
               type='purple'

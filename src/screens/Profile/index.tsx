@@ -53,7 +53,7 @@ export const Profile = () => {
         text: "Sair",
         onPress: async () => {
           await deleteToken();
-          await navigation.navigate("login");
+          navigation.navigate("login");
         },
       },
     ]);

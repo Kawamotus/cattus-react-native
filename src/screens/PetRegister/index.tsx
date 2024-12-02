@@ -26,6 +26,7 @@ import {
   SelectButtonTwoOptions,
   TitleData,
 } from "@screens/PetUpdate/styles";
+import { Loading } from "@components/Loading";
 
 export const PetRegister = () => {
   const [name, setName] = React.useState("");
@@ -36,7 +37,7 @@ export const PetRegister = () => {
   const [gender, setGender] = React.useState("Macho");
   const [obs, setObs] = React.useState("");
 
-  //petName, petBirth, petGender, petObs e petPicture
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const theme = useTheme();
   const navigation = useNavigation();
@@ -98,6 +99,8 @@ export const PetRegister = () => {
       return;
     }
 
+    setIsLoading(true);
+
     const user = await getUser();
     const result = await fetch(image);
     const blob = await result.blob();
@@ -121,7 +124,10 @@ export const PetRegister = () => {
     setImage("");
     setDate(new Date());
     setObs("");
-    setGender("Fêmea");
+    setGender("Macho");
+    Alert.alert("Sucesso", "Pet cadastrado com sucesso!");
+
+    setIsLoading(false);
 
     navigation.navigate("petList");
   };
@@ -132,63 +138,71 @@ export const PetRegister = () => {
         title='Cadastro'
         onPress={() => navigation.navigate("petList")}
       />
-      <ContainerScroll>
-        <ContainerImage>
-          <Picture source={require("@assets/sleeping-kitty.png")} />
-        </ContainerImage>
-        <ContainerForm>
-          <InputText placeholder='Nome' onChangeText={setName} value={name} />
-          <Button
-            title={
-              !date ? "Data de Nascimento" : `Nasceu em ${formatDate(date)}?`
-            }
-            onPress={() => setShow(!show)}
-          />
-          {show && (
-            <RNDateTimePicker value={date} mode='date' onChange={changeDate} />
-          )}
-          <View style={{ marginTop: 8, marginBottom: 8 }}>
-            <ContainerRow>
-              <SelectButtonTwoOptions
-                onPress={() => setGender("Macho")}
-                type={gender == "Macho"}>
-                <TitleData>Macho</TitleData>
-              </SelectButtonTwoOptions>
-              <SelectButtonTwoOptions
-                onPress={() => setGender("Fêmea")}
-                type={gender == "Fêmea"}>
-                <TitleData>Fêmea</TitleData>
-              </SelectButtonTwoOptions>
-            </ContainerRow>
-          </View>
-          <InputText
-            placeholder='Observações'
-            onChangeText={setObs}
-            value={obs}
-          />
-          <ContainerGallery>
-            <ButtonGallery onPress={takePhoto}>
-              <Camera color={theme.text} size={30} />
-            </ButtonGallery>
-            <ButtonGallery onPress={pickImage}>
-              <Images color={theme.text} size={30} />
-            </ButtonGallery>
-          </ContainerGallery>
-          {image && (
-            <Image
-              source={{ uri: image }}
-              style={{
-                width: 320,
-                height: 320,
-                borderRadius: 8,
-                marginBottom: 8,
-              }}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <ContainerScroll>
+          <ContainerImage>
+            <Picture source={require("@assets/sleeping-kitty.png")} />
+          </ContainerImage>
+          <ContainerForm>
+            <InputText placeholder='Nome' onChangeText={setName} value={name} />
+            <Button
+              title={
+                !date ? "Data de Nascimento" : `Nasceu em ${formatDate(date)}?`
+              }
+              onPress={() => setShow(!show)}
             />
-          )}
+            {show && (
+              <RNDateTimePicker
+                value={date}
+                mode='date'
+                onChange={changeDate}
+              />
+            )}
+            <View style={{ marginTop: 8, marginBottom: 8 }}>
+              <ContainerRow>
+                <SelectButtonTwoOptions
+                  onPress={() => setGender("Macho")}
+                  type={gender == "Macho"}>
+                  <TitleData>Macho</TitleData>
+                </SelectButtonTwoOptions>
+                <SelectButtonTwoOptions
+                  onPress={() => setGender("Fêmea")}
+                  type={gender == "Fêmea"}>
+                  <TitleData>Fêmea</TitleData>
+                </SelectButtonTwoOptions>
+              </ContainerRow>
+            </View>
+            <InputText
+              placeholder='Observações'
+              onChangeText={setObs}
+              value={obs}
+            />
+            <ContainerGallery>
+              <ButtonGallery onPress={takePhoto}>
+                <Camera color={theme.text} size={30} />
+              </ButtonGallery>
+              <ButtonGallery onPress={pickImage}>
+                <Images color={theme.text} size={30} />
+              </ButtonGallery>
+            </ContainerGallery>
+            {image && (
+              <Image
+                source={{ uri: image }}
+                style={{
+                  width: 320,
+                  height: 320,
+                  borderRadius: 8,
+                  marginBottom: 8,
+                }}
+              />
+            )}
 
-          <Button title='Cadastrar' type='green' onPress={sendData} />
-        </ContainerForm>
-      </ContainerScroll>
+            <Button title='Cadastrar' type='green' onPress={sendData} />
+          </ContainerForm>
+        </ContainerScroll>
+      )}
     </Container>
   );
 };

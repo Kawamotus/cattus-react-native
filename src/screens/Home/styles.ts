@@ -15,7 +15,6 @@ export const ContainerCharts = styled.View`
 export const ContainerData = styled.View`
   margin-left: 12px;
   margin-bottom: 12px;
-  margin-right: 12px;
 `;
 
 export const ContainerImage = styled(TouchableOpacity)`
@@ -33,9 +32,8 @@ export const Title = styled.Text`
 `;
 
 export const ContainerAlignCenter = styled.View`
-  justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 21px;
   flex-direction: row;
 `;
 

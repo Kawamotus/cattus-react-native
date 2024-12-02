@@ -12,7 +12,13 @@ export const StyledButton = styled(TouchableOpacity)<Props>`
   max-height: 50px;
   width: 320px;
   background-color: ${({ theme, type }: any) =>
-    type === "green" ? theme.green400 : theme.purple300};
+    type === "green"
+      ? theme.green400
+      : type === "danger"
+      ? theme.danger
+      : type === "purple"
+      ? theme.purple300
+      : theme.green400};
   align-items: center;
   justify-content: center;
   border-radius: 8px;

@@ -109,20 +109,6 @@ export const patchAnimal = async (id: string, body: AnimalProps) => {
   return response;
 };
 
-export const uploadImage = async (body: FormData) => {
-  const token = await getToken();
-  const result = await fetch(`${Path}/upload-image`, {
-    method: "POST",
-    headers: {
-      authorization: token,
-    },
-    body: body,
-  });
-
-  const response = await result.json();
-  return response;
-};
-
 export const searchAnimal = async (fields: string) => {
   const token = await getToken();
   const result = await fetch(`${Path}/animal/search`, {
@@ -132,6 +118,34 @@ export const searchAnimal = async (fields: string) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ query: fields, fields: ["petName"] }),
+  });
+
+  const response = await result.json();
+  return response;
+};
+
+export const deleteAnimal = async (id: string) => {
+  const token = await getToken();
+  const result = await fetch(`${Path}/animal/delete/${id}`, {
+    method: "DELETE",
+    headers: {
+      authorization: token,
+    },
+  });
+
+  console.log(await result);
+
+  return result.ok;
+};
+
+export const uploadImage = async (body: FormData) => {
+  const token = await getToken();
+  const result = await fetch(`${Path}/upload-image`, {
+    method: "POST",
+    headers: {
+      authorization: token,
+    },
+    body: body,
   });
 
   const response = await result.json();
