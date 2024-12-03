@@ -45,27 +45,17 @@ export const CameraList = () => {
   return (
     <Container>
       <Header />
-      {showWebView ? (
-        <WebView
-          source={{ uri: uri }}
-          style={{ flex: 1 }}
-          onNavigationStateChange={(navState) =>
-            navState.url !== uri && setShowWebView(false)
-          }
-        />
-      ) : (
-        <ContentList>
-          {cameraData.map((item) => (
-            <CameraItem
-              key={item._id}
-              title={item.title}
-              linkPic={item.linkPic}
-              //onPress={() => handleNatigate(item._id)}
-              onPress={() => setShowWebView(true)}
-            />
-          ))}
-        </ContentList>
-      )}
+
+      <ContentList>
+        {cameraData.map((item) => (
+          <CameraItem
+            key={item._id}
+            title={item.title}
+            linkPic={item.linkPic}
+            onPress={() => handleNatigate(item._id)}
+          />
+        ))}
+      </ContentList>
     </Container>
   );
 };

@@ -13,6 +13,7 @@ export declare global {
       profileList: undefined;
       petUpdate: { _id: string };
       petSearch: undefined;
+      notificationList: undefined;
     }
   }
 }

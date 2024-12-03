@@ -38,7 +38,10 @@ export const Header = () => {
       </Clickable>
       <CompanyName>{userData.companyName}</CompanyName>
       <Clickable>
-        <Bell color={theme.text} />
+        <Bell
+          color={theme.text}
+          onPress={() => navigation.navigate("notificationList")}
+        />
       </Clickable>
     </Container>
   );

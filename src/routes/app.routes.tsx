@@ -8,6 +8,7 @@ import { CameraList } from "@screens/CameraList";
 import { Graphics } from "@screens/Graphics";
 import { Home } from "@screens/Home";
 import { Login } from "@screens/Login";
+import { NotificationList } from "@screens/NotificationList";
 import { PetDetail } from "@screens/PetDetail";
 import { PetList } from "@screens/PetList";
 import { PetRegister } from "@screens/PetRegister";
@@ -35,6 +36,7 @@ type AppRoutes = {
   profileList: undefined;
   petUpdate: undefined;
   petSearch: undefined;
+  notificationList: undefined;
 };
 
 export type AppRoutesProps = BottomTabNavigationProp<AppRoutes>;
@@ -129,6 +131,11 @@ export const AppRoutes = () => {
             />
           ),
         }}
+      />
+      <Screen
+        name='notificationList'
+        component={NotificationList}
+        options={{ tabBarButton: () => null }}
       />
       <Screen
         name='petSearch'
