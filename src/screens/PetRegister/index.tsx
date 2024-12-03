@@ -16,7 +16,6 @@ import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import { Alert, Image, View } from "react-native";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
-import { Picker } from "@react-native-picker/picker";
 import { Camera, Images } from "lucide-react-native";
 import { postAnimal } from "src/functions/AnimalsFetch";
 import { getUser } from "@storage/user";

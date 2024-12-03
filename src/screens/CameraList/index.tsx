@@ -2,10 +2,11 @@ import { Header } from "@components/Header";
 import { Container, ContentList } from "./styles";
 import { CameraItem } from "@components/CameraItem";
 import React from "react";
-import { FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import WebView from "react-native-webview";
 
 export const CameraList = () => {
+  const [showWebView, setShowWebView] = React.useState(false);
   const [cameraData, setCameraData] = React.useState([
     {
       _id: "1",
@@ -35,6 +36,8 @@ export const CameraList = () => {
 
   const navigation = useNavigation();
 
+  const uri = "https://expo.dev/";
+
   const handleNatigate = (_id: string) => {
     navigation.navigate("cameraDetail", { _id });
   };
@@ -42,21 +45,27 @@ export const CameraList = () => {
   return (
     <Container>
       <Header />
-      <ContentList>
-        <FlatList
-          data={cameraData}
-          keyExtractor={(item) => item._id}
-          renderItem={({ item }) => (
+      {showWebView ? (
+        <WebView
+          source={{ uri: uri }}
+          style={{ flex: 1 }}
+          onNavigationStateChange={(navState) =>
+            navState.url !== uri && setShowWebView(false)
+          }
+        />
+      ) : (
+        <ContentList>
+          {cameraData.map((item) => (
             <CameraItem
+              key={item._id}
               title={item.title}
               linkPic={item.linkPic}
-              onPress={() => handleNatigate(item._id)}
+              //onPress={() => handleNatigate(item._id)}
+              onPress={() => setShowWebView(true)}
             />
-          )}
-          numColumns={2}
-          showsVerticalScrollIndicator={false}
-        />
-      </ContentList>
+          ))}
+        </ContentList>
+      )}
     </Container>
   );
 };

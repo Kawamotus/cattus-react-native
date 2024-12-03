@@ -142,7 +142,7 @@ export const Home = () => {
           </ContainerData>
           <ContainerData>
             <Title>Últimos adicionados</Title>
-            <ScrollView horizontal>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {animalData
                 .slice(animalData.length - 4, animalData.length)
                 .map((item) => (

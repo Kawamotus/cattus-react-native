@@ -6,6 +6,8 @@ export const Container = styled.SafeAreaView`
 `;
 
 export const ContentList = styled.View`
-  align-items: center;
   flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 `;

@@ -1,5 +1,5 @@
-import { getUser } from "@storage/user";
 import { Path } from "./Path";
+import { getUser } from "@storage/user";
 import { getToken } from "@storage/token";
 
 export type AnimalProps = {
