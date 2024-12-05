@@ -37,6 +37,7 @@ export const Profile = () => {
     const result = await getUser();
     setData(await result);
     setIsLoading(false);
+    console.log(result);
   };
 
   const handleBack = () => {
@@ -51,8 +52,12 @@ export const Profile = () => {
       },
       {
         text: "Sair",
-        onPress: async () => {
-          await deleteToken();
+        onPress: () => {
+          deleteToken()
+            .then(() =>
+              navigation.reset({ index: 0, routes: [{ name: "login" }] })
+            )
+            .catch(() => Alert.alert("Erro", "Falha ao sair"));
           navigation.navigate("login");
         },
       },

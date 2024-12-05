@@ -4,7 +4,11 @@ import { Header } from "@components/Header";
 import { useTheme } from "@themes";
 import { Pie } from "@components/Charts/Pie";
 import React from "react";
-import { getAllActivities, getSickAnimals } from "src/functions/ChartsFetch";
+import {
+  getAllActivities,
+  getAllAnimalsByGender,
+  getSickAnimals,
+} from "src/functions/ChartsFetch";
 import { useFocusEffect } from "@react-navigation/native";
 import { Loading } from "@components/Loading";
 
@@ -22,6 +26,11 @@ export const Graphics = () => {
     { activityName: "comer", avgActivityTime: 0 },
     { activityName: "dormir", avgActivityTime: 0 },
   ]);
+  const [allPets, setAllPets] = React.useState({
+    femea: 0,
+    macho: 0,
+    total: 0,
+  });
 
   const getData = async () => {
     setIsLoading(true);
@@ -34,22 +43,27 @@ export const Graphics = () => {
     setSickData({ status: status, data: dados });
 
     const activitiesAnimals = await getAllActivities();
-    setActivityData(activitiesAnimals);
+    setActivityData(activitiesAnimals && activitiesAnimals);
+
+    const allAnimals = await getAllAnimalsByGender();
+    setAllPets(allAnimals && allAnimals[0].gatos);
+
     setIsLoading(false);
+    console.log(allPets);
   };
 
   const theme = useTheme();
   const data = [
     {
       name: "Fêmea(s)",
-      population: 2,
+      population: allPets.femea ? allPets.femea : 0,
       color: "green",
       legendFontColor: theme.text,
       legendFontSize: 16,
     },
     {
       name: "Macho(s)",
-      population: 4,
+      population: allPets.macho ? allPets.macho : 0,
       color: "orange",
       legendFontColor: theme.text,
       legendFontSize: 16,

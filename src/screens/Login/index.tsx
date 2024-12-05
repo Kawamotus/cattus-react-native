@@ -8,6 +8,7 @@ import { Path } from "src/functions/Path";
 import { getUserData } from "src/functions/Login";
 import { Container, Logo, ValidationText } from "./styles";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { Alert } from "react-native";
 
 export const Login = () => {
   const [email, setEmail] = React.useState("");
@@ -16,10 +17,12 @@ export const Login = () => {
   const [passwordValidation, setPasswordValidation] = React.useState("");
   const [isLogged, setIsLogged] = React.useState(false);
   const [isDisabled, setIsDisabled] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const navigation = useNavigation();
 
   const SignIn = async () => {
+    setIsLoading(true);
     const response = await fetch(`${Path}/employee/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -42,7 +45,14 @@ export const Login = () => {
       await addUser(user);
 
       navigation.navigate("home");
+      setIsLoading(false);
+      setIsDisabled(false);
+    } else {
+      Alert.alert("Erro", "Falha ao entrar :(");
+      setIsLoading(false);
+      setIsDisabled(false);
     }
+    setIsLoading(false);
   };
 
   const handleClickButton = () => {
@@ -87,7 +97,7 @@ export const Login = () => {
     }, [])
   );
 
-  return isLogged ? (
+  return isLogged || isLoading ? (
     <Loading />
   ) : (
     <Container>
