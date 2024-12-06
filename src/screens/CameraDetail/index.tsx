@@ -4,8 +4,6 @@ import {
   useRoute,
 } from "@react-navigation/native";
 import { Container } from "./styles";
-import { Video } from "expo-av";
-import { useTheme } from "@themes";
 import WebView from "react-native-webview";
 import React from "react";
 import { HeaderTitleBack } from "@components/HeaderTitleBack";
@@ -13,9 +11,6 @@ import { HeaderTitleBack } from "@components/HeaderTitleBack";
 type RouteParams = {
   _id: string;
 };
-
-const videoSource =
-  "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8";
 
 export const CameraDetail = () => {
   const route = useRoute();
@@ -27,7 +22,7 @@ export const CameraDetail = () => {
 
   useFocusEffect(React.useCallback(() => {}, []));
 
-  const uri = "https://expo.dev/";
+  const uri = "http://192.168.227.31:5000/camera_stream";
 
   return (
     <Container>
